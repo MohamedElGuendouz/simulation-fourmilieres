@@ -15,6 +15,7 @@ class Environnement {
     void initObstacleNourriture(bool cellulesSontLibres);
 
     Cellule getCellule(int x, int y) const;
+    void getCelluleLibre(int& x,int& y) const;
 
     void affiche();
 
