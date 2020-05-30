@@ -25,30 +25,26 @@ void Environnement::initObstacleNourriture(bool cellulesSontLibres){
     for (int i = 0; i<nombreObstacle;i++){
         x = rand() % hauteur;
         y = rand() % largeur;
-        getCelluleLibre(x,y);
-        terrain[x][y].setType(OBSTACLE);
+        getCelluleLibre(x,y).setType(OBSTACLE);
     }
     for (int i = 0; i<nombreNourriture;i++){
         x = rand() % hauteur;
         y = rand() % largeur;
-        getCelluleLibre(x,y);
-        terrain[x][y].setType(NOURRITURE);
+        getCelluleLibre(x,y).setType(NOURRITURE);
     }
 }
 
-Cellule Environnement::getCellule(int x, int y) const {
+Cellule& Environnement::getCellule(int x, int y) {
     return terrain[x][y];
 }
 
-void Environnement::getCelluleLibre(int& x, int& y) const {
-    //std::cout<<x<<" "<<y;
+Cellule& Environnement::getCelluleLibre(int x, int y) {
     while (terrain[x][y].getType() != LIBRE){
         if (y<largeur-1) y++;
         else if (x<hauteur-1) { x++; y=0;}
         else { x=0 ; y=0;}
     }
-    //std::cout<<" sortie "<<x<<" "<<y<<std::endl;
-    //return terrain[x][y];
+    return terrain[x][y];
 }
 
 void Environnement::affiche(){

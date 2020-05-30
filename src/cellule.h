@@ -1,6 +1,6 @@
 #include <vector>
 
-typedef enum { LIBRE, OBSTACLE, NOURRITURE } T_TYPE_CELLULE ;
+typedef enum { LIBRE, OBSTACLE, NOURRITURE, OCCUPE } T_TYPE_CELLULE ;
 
 class Cellule {
     private:
