@@ -6,13 +6,15 @@ class fourmi {
         int ord;
     public:
         fourmi(int x, int y):abs(x),ord(y){}
-        fourmi::fourmi(const fourmi& u):abs(u.abs),ord(u.ord){}
+        fourmi(const fourmi& u):abs(u.abs),ord(u.ord){}
         ~fourmi() ;
-        fourmi& operator=(const fourmi&) ;
+        fourmi& operator=(fourmi const&) ;
 
-        int getCoordAbs() const { return abs; }
-        void setCoordAbs(int i) { abs = i ; }
+        void setCoord(int x, int y);
+        void setCoord(double x, double y);
+        int getAbs() const { return abs; }
+        void setAbs(int i) { abs = i ; }
 
-        int getCoordOrd() const { return ord; }
-        void setCoordOrd(int i) { ord = i ; }
+        int getOrd() const { return ord; }
+        void setOrd(int i) { ord = i ; }
 };
