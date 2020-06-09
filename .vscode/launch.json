@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
+
             "name": "g++ - Générer et déboguer le fichier actif",
             "type": "cppdbg",
             "request": "launch",
@@ -13,6 +14,7 @@
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
+
             "externalConsole": false,
             "MIMode": "lldb",
             "preLaunchTask": "g++ build active file"
