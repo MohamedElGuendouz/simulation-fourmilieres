@@ -5,15 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(Windows) Lancer",
-            "type": "cppvsdbg",
+
+            "name": "g++ - Générer et déboguer le fichier actif",
+            "type": "cppdbg",
             "request": "launch",
-            "program": "main.cpp",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": false
+
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "g++ build active file"
         }
     ]
 }
