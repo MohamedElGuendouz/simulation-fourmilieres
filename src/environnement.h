@@ -11,8 +11,10 @@ class Environnement {
 
     public:
     Environnement();
+    Environnement(int h, int l, int nbObs, int nbNour);
 
     void initObstacleNourriture(bool cellulesSontLibres);
+    void insereNewFourmiliere(int x, int y, int pm, int nm, int n);
 
     Cellule& getCellule(int x, int y);
     Cellule& getCelluleLibre(int x, int y);

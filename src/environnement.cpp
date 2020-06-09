@@ -14,6 +14,25 @@ Environnement::Environnement(){
         }
     }
 
+    insereNewFourmiliere(hauteur/2,largeur/2,200,1000,100);
+    initObstacleNourriture(true);
+}
+
+Environnement::Environnement(int h, int l, int nbObs, int nbNour){
+    largeur = l;
+    hauteur = h;
+    nombreObstacle = nbObs;
+    nombreNourriture = nbNour;
+
+    terrain.resize(hauteur);
+    for (int i=0 ; i < terrain.size();i++){
+        terrain[i].resize(largeur);
+        for (int j = 0 ; j < terrain[i].size(); j++){
+            terrain[i][j] = Cellule( i , j , LIBRE);
+        }
+    }
+
+    insereNewFourmiliere(hauteur/2,largeur/2,200,1000,100);
     initObstacleNourriture(true);
 }
 
@@ -34,7 +53,14 @@ void Environnement::initObstacleNourriture(bool cellulesSontLibres){
     }
 }
 
+void Environnement::insereNewFourmiliere(int x, int y, int pm, int nm, int n){
+    if (x >= hauteur or x < 0 or y < 0 or y > largeur) throw 0; //out of range
+    terrain[x][y].addContenu(Fourmiliere(x,y,pm,nm,n));
+    terrain[x][y].setType(FOURMILIERE);
+}
+
 Cellule& Environnement::getCellule(int x, int y) {
+    if (x >= hauteur or x < 0 or y < 0 or y > largeur) throw 0; //out of range
     return terrain[x][y];
 }
 
@@ -54,6 +80,7 @@ void Environnement::affiche(){
             if(terrain[i][j].getType() == LIBRE)  std::cout<<"_";
             else if (terrain[i][j].getType() == OBSTACLE)  std::cout<<"X";
             else if (terrain[i][j].getType() == NOURRITURE)  std::cout<<"O";
+            else if (terrain[i][j].getType() == FOURMILIERE)  std::cout<<"F";
         }
     }
     std::cout<<std::endl;

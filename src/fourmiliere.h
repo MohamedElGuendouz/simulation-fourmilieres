@@ -1,19 +1,22 @@
 #include <vector>
-#include "cellule.h"
+#include "entite.h"
 
-class Fourmiliere {
+class Fourmiliere : public Entite {
     private:
-        int populationMax;
-        int nourritureMax;
-        int nourriture;
-        std::vector<int> fourmis;
-        Cellule* cell;
+        unsigned int populationMax;
+        unsigned int nourritureMax;
+        unsigned int nourriture;
+        std::vector<Entite> contenu;
 
     public:
-        Fourmiliere(int pm,int nm, int n, Cellule* ptrCell){
+        Fourmiliere(int x, int y, int pm,int nm, int n){
+            this->x = x;
+            this->y = y;
             populationMax = pm;
             nourritureMax = nm;
             nourriture = n;
-            cell = ptrCell;
         }
+
+        void ajoutNourriture(int n);
+        bool consommeNourriture(int n);
 };
