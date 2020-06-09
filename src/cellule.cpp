@@ -11,6 +11,10 @@ Cellule::Cellule(int coordX, int coordY, T_TYPE_CELLULE type ){
     this->type = type;
 }
 
+void Cellule::addContenu(Entite ent){
+    contenu.push_back(ent);
+}
+
 void Cellule::setType(T_TYPE_CELLULE type) {
     this->type = type;
 }

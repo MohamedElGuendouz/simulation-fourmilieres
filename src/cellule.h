@@ -1,18 +1,23 @@
 #include <vector>
+#include "fourmiliere.h"
 
-typedef enum { LIBRE, OBSTACLE, NOURRITURE, OCCUPE } T_TYPE_CELLULE ;
+typedef enum { LIBRE, OBSTACLE, NOURRITURE, FOURMILIERE } T_TYPE_CELLULE ;
 
 class Cellule {
     private:
     
     int x;
     int y;
+    int pheromones;
+    int nourriture;
     T_TYPE_CELLULE type;
-    std::vector<int> fourmis;
+    std::vector<Entite> contenu;
 
     public:
     Cellule();
     Cellule( int coordX, int coordY, T_TYPE_CELLULE type );
+
+    void addContenu(Entite ent);
 
     Cellule getSuivant() const;//droite puis retour à la ligne puis retour a premiere cellule
     Cellule getDessus() const;
