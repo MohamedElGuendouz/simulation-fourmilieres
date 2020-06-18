@@ -20,6 +20,7 @@ class Cellule {
     Cellule( int coordX, int coordY, T_TYPE_CELLULE type );
 
     void addContenu(Fourmi ent);
+    
 
     Cellule getSuivant() const;//droite puis retour à la ligne puis retour a premiere cellule
     Cellule getDessus() const;
