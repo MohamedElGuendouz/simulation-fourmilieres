@@ -1,4 +1,4 @@
-#include "cellule.h"
+#include "fourmiliere.h"
 #include <iostream>
 
 class Environnement {

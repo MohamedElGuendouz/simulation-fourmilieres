@@ -15,7 +15,7 @@ Cellule::Cellule(int coordX, int coordY, T_TYPE_CELLULE type ){
     nourriture = 0;
 }
 
-void Cellule::addContenu(Entite ent){
+void Cellule::addContenu(Fourmi ent){
     contenu.push_back(ent);
 }
 

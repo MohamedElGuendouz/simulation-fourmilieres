@@ -4,18 +4,18 @@
 /**
  * op= 
  */
-fourmi::~fourmi()
+/*Fourmi::~Fourmi()
 {
   // liberation du positionleau de coord
-  std::cout << "destructeur" ;
-  if (abs) delete abs ;
-  if (ord) delete ord ;
-}
+  //std::cout << "destructeur" ;
+  //if (abs) delete abs ;
+  //if (ord) delete ord ;
+}*/
 
 /**
  * op= 
  */
-fourmi& fourmi::operator=(fourmi const& u)
+Fourmi& Fourmi::operator=(Fourmi const& u)
 {
   // liberation du positionleau de coord
     //if (abs) delete abs ;
@@ -28,12 +28,12 @@ fourmi& fourmi::operator=(fourmi const& u)
   return (*this) ;
 }
 
-void fourmi::setCoord(int abs, int ord){
+void Fourmi::setCoord(int abs, int ord){
   this->abs = abs;
   this->ord = ord;
 }
 
-void fourmi::setCoord(double x, double y){
+void Fourmi::setCoord(double x, double y){
   
   this->abs = int(abs);
   this->ord = int(ord);

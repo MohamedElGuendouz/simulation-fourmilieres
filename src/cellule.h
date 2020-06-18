@@ -1,5 +1,5 @@
 #include <vector>
-#include "fourmiliere.h"
+#include "fourmi.h"
 
 typedef enum { LIBRE, OBSTACLE, NOURRITURE, FOURMILIERE } T_TYPE_CELLULE ;
 
@@ -9,15 +9,17 @@ class Cellule {
     int x;
     int y;
     int pheromones;
-    int nourriture;
     T_TYPE_CELLULE type;
-    std::vector<Entite> contenu;
+    std::vector<Fourmi> contenu;
 
+    protected:
+    int nourriture;
+    
     public:
     Cellule();
     Cellule( int coordX, int coordY, T_TYPE_CELLULE type );
 
-    void addContenu(Entite ent);
+    void addContenu(Fourmi ent);
 
     Cellule getSuivant() const;//droite puis retour à la ligne puis retour a premiere cellule
     Cellule getDessus() const;

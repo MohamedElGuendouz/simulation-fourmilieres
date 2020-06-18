@@ -2,7 +2,7 @@
 
 typedef enum { EXPLORATION , RETOUR } T_TYPE_DEPLACEMENT ;
 
-class guerriere : fourmi {
+class guerriere : Fourmi {
     private:
         T_TYPE_DEPLACEMENT deplacement;
     public:

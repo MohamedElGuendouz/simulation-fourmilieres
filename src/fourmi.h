@@ -1,6 +1,6 @@
 #include <cstddef>
 
-class fourmi {
+class Fourmi {
     private:
         int abs;
         int ord;
@@ -8,10 +8,10 @@ class fourmi {
         int nourriture;
         int consommation;
     public:
-        fourmi(int x, int y):abs(x),ord(y){}
-        fourmi(const fourmi& u):abs(u.abs),ord(u.ord){}
-        ~fourmi() ;
-        fourmi& operator=(fourmi const&) ;
+        Fourmi(int x, int y):abs(x),ord(y){}
+        Fourmi(const Fourmi& u):abs(u.abs),ord(u.ord){}
+        //~Fourmi() ;
+        Fourmi& operator=(Fourmi const&) ;
 
         void setCoord(int x, int y);
         void setCoord(double x, double y);
