@@ -1,18 +1,23 @@
 #include "cellule.h"
+#
 #include <iostream>
 
-class Environnement {
+class Environnement : public Singleton<Environnement>{
+    friend class Singleton<Environnement>; 
     private:
     int nombreObstacle;
     int nombreNourriture;
     int hauteur; //x
     int largeur; //y
-    std::vector<std::vector<Cellule>> terrain;
+    std::vector< std::vector<Cellule>> terrain;
+    int id;
+    friend class Singleton<Environnement>; 
 
     public:
     Environnement();
     Environnement(int h, int l, int nbObs, int nbNour);
-
+    void setId(int i);
+    int getId();
     void initObstacleNourriture(bool cellulesSontLibres);
     void insereNewFourmiliere(int x, int y, int pm, int nm, int n);
 
