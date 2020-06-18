@@ -49,7 +49,9 @@ void Environnement::initObstacleNourriture(bool cellulesSontLibres){
     for (int i = 0; i<nombreNourriture;i++){
         x = rand() % hauteur;
         y = rand() % largeur;
-        getCelluleLibre(x,y).setType(NOURRITURE);
+        Cellule* retenue = & getCelluleLibre(x,y);
+        retenue->setType(NOURRITURE);
+        retenue->setNourriture(500);
     }
 }
 

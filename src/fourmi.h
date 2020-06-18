@@ -4,6 +4,9 @@ class fourmi {
     private:
         int abs;
         int ord;
+        int nourriture_max;
+        int nourriture;
+        int consommation;
     public:
         fourmi(int x, int y):abs(x),ord(y){}
         fourmi(const fourmi& u):abs(u.abs),ord(u.ord){}

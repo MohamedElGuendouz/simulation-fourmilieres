@@ -28,4 +28,7 @@ class Cellule {
     T_TYPE_CELLULE getType() const;
 
     void setType(T_TYPE_CELLULE type);
+    void setNourriture(int n);
+
+    int retirer_nourriture(int n); 
 };
