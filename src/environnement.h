@@ -1,5 +1,4 @@
 #include "cellule.h"
-#
 #include <iostream>
 
 class Environnement : public Singleton<Environnement>{
@@ -9,7 +8,7 @@ class Environnement : public Singleton<Environnement>{
     int nombreNourriture;
     int hauteur; //x
     int largeur; //y
-    std::vector< std::vector<Cellule>> terrain;
+    std::vector< std::vector<Cellule> > terrain;
     int id;
     friend class Singleton<Environnement>; 
 

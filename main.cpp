@@ -23,5 +23,5 @@ void testSingleton() {
 }
 int main() {
     std::cout << "Bienvenue!\n";
-    testSingleton();
+
 }

@@ -1,9 +1,7 @@
 #include <vector>
 #include "entite.h"
-#include "singleton.h"
 
-class Fourmiliere : public Entite, Singleton<Fourmiliere> {
-    friend class Singleton<Fourmiliere>; 
+class Fourmiliere : public Entite {
     private:
         unsigned int populationMax;
         unsigned int nourritureMax;

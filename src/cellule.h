@@ -19,11 +19,7 @@ class Cellule {
 
     void addContenu(Entite ent);
 
-    Cellule getSuivant() const;//droite puis retour à la ligne puis retour a premiere cellule
-    Cellule getDessus() const;
-    Cellule getDessous() const;
-    Cellule getDroite() const;
-    Cellule getGauche() const;
+    void addPheromone(int qte) {pheromones += qte;}
 
     T_TYPE_CELLULE getType() const;
 
