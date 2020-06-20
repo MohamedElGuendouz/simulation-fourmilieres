@@ -74,6 +74,93 @@ Cellule& Environnement::getCelluleLibre(int x, int y) {
     return terrain[x][y];
 }
 
+std::vector<synthese_cell> Environnement::autour_cellule(int x, int y){
+    std::vector<synthese_cell> result;
+    synthese_cell cell;
+    if(x-1 >= 0 and terrain[x-1][y].getType() != OBSTACLE){
+        cell.type = terrain[x-1][y].getType();
+        cell.pheromone = terrain[x-1][y].getPheromone();
+        cell.x = x-1;
+        cell.y = y;
+        result.push_back(cell);
+    }
+    if(x+1 < hauteur and terrain[x+1][y].getType() != OBSTACLE){
+        cell.type = terrain[x+1][y].getType();
+        cell.pheromone = terrain[x+1][y].getPheromone();
+        cell.x = x+1;
+        cell.y = y;
+        result.push_back(cell);
+    }
+    if(y-1 >= 0 and terrain[x][y-1].getType() != OBSTACLE){
+        cell.type = terrain[x][y-1].getType();
+        cell.pheromone = terrain[x][y-1].getPheromone();
+        cell.x = x;
+        cell.y = y-1;
+        result.push_back(cell);
+    }
+    if(y+1 < largeur and terrain[x][y+1].getType() != OBSTACLE){
+        cell.type = terrain[x][y+1].getType();
+        cell.pheromone = terrain[x][y+1].getPheromone();
+        cell.x = x;
+        cell.y = y+1;
+        result.push_back(cell);
+    }
+    return result;
+}
+
+void Environnement::nouveauTour(){
+    for (int i=0 ; i < terrain.size();i++){
+        for (int j = 0 ; j < terrain[i].size(); j++){
+            //les actions sur les différents attributs de la cellule
+            //pheromones diminuent
+
+            //les actions sur les fourmis dans la cellule
+            std::vector<Fourmi>& fourmis = terrain[i][j].getContenu();
+            for (int k=0; k< fourmis.size();i++){
+                int x = fourmis[k].getAbs();
+                int y = fourmis[k].getOrd();
+                int deplacement = fourmis[k].getParamDeplacement();
+                bool cherche_nourriture = fourmis[k].getChercheNourriture();
+
+                if (deplacement > 0) {
+                    bool case_trouve = false;
+                    int xfutur, yfutur;
+                    std::vector<synthese_cell> synthese = autour_cellule(i,j);
+                    if (cherche_nourriture){
+                        int l = 0;
+                        while(!case_trouve and l < synthese.size()){
+                            if(synthese[l].type = NOURRITURE){
+                                xfutur = synthese[l].x;
+                                yfutur = synthese[l].y;
+                                case_trouve = true;
+                            }
+                            l++;
+                        }                      
+                    } 
+                    if(!case_trouve){
+                        int totalPhero = 0;
+                        int somme = 0;
+                        for(int l = 0 ; l< synthese.size();l++){
+                            totalPhero += synthese[l].pheromone;
+                        }
+                        for(int l = 0 ; l< synthese.size();l++){
+                            somme += deplacement / synthese.size() + (100-deplacement)* synthese[l].pheromone / totalPhero;
+                            synthese[l].seuilChoix = somme;
+                        }
+                        int tirage = rand() %100;
+                        int indice = 0;
+                        while (tirage > synthese[indice].seuilChoix and indice < synthese.size()-1){
+                            indice++;
+                        }
+                    }
+                }
+            }
+            //laisse des pheromones
+            //ramasse ou depose nourriture
+        }
+    }
+}
+
 void Environnement::affiche(){
     for (int i=0 ; i < terrain.size();i++){
         std::cout<<std::endl;

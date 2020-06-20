@@ -1,6 +1,14 @@
 #include "fourmiliere.h"
 #include <iostream>
 
+struct synthese_cell {
+    T_TYPE_CELLULE type;
+    int pheromone;
+    int x;
+    int y;
+    int seuilChoix;
+};
+
 class Environnement {
     private:
     int nombreObstacle;
@@ -8,6 +16,7 @@ class Environnement {
     int hauteur; //x
     int largeur; //y
     std::vector<std::vector<Cellule>> terrain;
+    std::vector<Fourmi> fourmis;
 
     public:
     Environnement();
@@ -18,6 +27,11 @@ class Environnement {
 
     Cellule& getCellule(int x, int y);
     Cellule& getCelluleLibre(int x, int y);
+
+    void nouveauTour();
+    void deplaceFourmi();
+
+    std::vector<synthese_cell> autour_cellule(int x, int y);
 
     void affiche();
 
@@ -37,3 +51,4 @@ class Environnement {
         std::cout<< "nourriture : "<< n <<std::endl;
     }
 };
+

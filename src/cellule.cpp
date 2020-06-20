@@ -19,6 +19,14 @@ void Cellule::addContenu(Fourmi ent){
     contenu.push_back(ent);
 }
 
+std::vector<Fourmi>& Cellule::getContenu(){
+    return contenu;
+}
+
+int Cellule::getPheromone() const {
+    return pheromones;
+}
+
 T_TYPE_CELLULE Cellule::getType() const {
     return type;
 }
