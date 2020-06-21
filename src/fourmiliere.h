@@ -1,5 +1,4 @@
 #include <vector>
-#include "entite.h"
 
 class Fourmiliere : public Entite {
     private:
@@ -19,4 +18,5 @@ class Fourmiliere : public Entite {
 
         void ajoutNourriture(int n);
         bool consommeNourriture(int n);
+
 };

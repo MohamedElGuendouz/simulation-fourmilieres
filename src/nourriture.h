@@ -1,10 +1,9 @@
-#include "entite.h"
-
-class nourriture: public Entite {
+class Nourriture: public Entite {
 
 	private:
 		int valeur;
 	
 	public: 
-		int getvalue(){return valeur;}
+		int getValeur(){return valeur;};
+		int setValeur(int v){valeur = v;};
 };

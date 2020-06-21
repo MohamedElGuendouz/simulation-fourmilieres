@@ -1,10 +1,10 @@
 #include <cstddef>
 
-typedef enum { LARVE , OEUF , FOURMI} T_ETAT_FOURMI ;
+typedef enum { LARVE , OEUF , FOURMI } T_ETAT_FOURMI ;
 typedef enum { REINE , GUERRIERE , OUVRIERE } T_STATUS_FOURMI ;
 typedef enum { EXPLORATION , RAVITAILLEMENT , AUFRONT } T_EXPLORATION_FOURMI ;
 
-class fourmi : public Entite {
+class Fourmi : public Entite {
     private:
         T_ETAT_FOURMI etat;
         T_STATUS_FOURMI status;
@@ -12,14 +12,22 @@ class fourmi : public Entite {
 
         int abs;
         int ord;
-        int lifevalue;
+        int lifeValue;
         int age;
         int consommation;
+        int nourriture;
+        int nourritureMax;
+
     public:
-        fourmi(int x, int y, T_ETAT_FOURMI etat,T_STATUS_FOURMI status):abs(x),ord(y),etat(etat),status(status){age = 0;}
-        fourmi(const fourmi& u):abs(u.abs),ord(u.ord){}
-        ~fourmi() ;
-        fourmi& operator=(fourmi const&) ;
+        Fourmi(int x, int y, T_ETAT_FOURMI etat,T_STATUS_FOURMI status):abs(x),ord(y),etat(etat),status(status){age = 0;}
+        Fourmi(const Fourmi& u):abs(u.abs),ord(u.ord){}
+        ~Fourmi() ;
+        Fourmi& operator=(Fourmi const&) ;
+        int getNourriture(){return nourriture;};
+        int getNourritureMax(){return nourritureMax;};
+
+        void setNourriture(int i){nourriture=i;};
+        void setNourritureMax(int i){nourritureMax=i;};
 
         void setCoord(int x, int y);
         void setCoord(double x, double y);
@@ -29,15 +37,19 @@ class fourmi : public Entite {
         int getOrd() const { return ord; }
         void setOrd(int i) { ord = i ; }
 
-        void downlifevalue(){lifevalue--;};
-        void getlifevalue(){return lifevalue;};
+        void downLifeValue(){lifeValue--;};
+        int getLifeValue(){return lifeValue;};
 
-        void upyear(){age++;};
+        void upYear(){age++;};
 
-        T_TYPE_FOURMI getrole(){return role;};
-        void setrole(T_TYPE_FOURMI r){this->role=r;};
+        T_ETAT_FOURMI getEtat(){return etat;};
+        void setEtat(T_ETAT_FOURMI r){this->etat=r;};
 
-        T_TYPE_FOURMI getrole(){return role;};
-        setrole(T_TYPE_FOURMI r){this->role=r;};
+        T_STATUS_FOURMI getStatus(){return status;};
+        void setStatus(T_STATUS_FOURMI s){this->status=s;};
+
+        void changeEtat();
+        void changeStatus();
+        void changeExploration();
 
 };

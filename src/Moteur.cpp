@@ -1,6 +1,4 @@
 #include "Moteur.h"
-#include "fourmi.h"
-#include "entite.h"
 
 /** Cette méthode est utilisé pour passer a la prochaine partie **/
 void Moteur::next()
@@ -30,9 +28,10 @@ void Moteur::updateValues()
 {
     /** Mettre à jour la vie de chaque fourmis */
     for( int i=0; i<fourmis.size(); i++) {
-        fourmis[i].downlifevalue();
-        fourmis[i].upyear();
-        fourmis[i].changeRole();
+        fourmis[i].downLifeValue();
+        fourmis[i].upYear();
+        fourmis[i].changeEtat();
+        fourmis[i].changeStatus();
         fourmis[i].changeExploration();
     }
 }
@@ -42,40 +41,37 @@ void Moteur::garbageEntite()
 {
     /** Supprimer les fourmis mortes */
     for( int i=0; i<fourmis.size(); i++) {
-        if(fourmis[i].getlifevalue() == 0) {
+        if(fourmis[i].getLifeValue() == 0) {
             fourmis[i].erase(i);
         }
     }
 
     /** Supprimer les nourritures avec une valeur a 0 */
     for( int i=0; i<nourritures.size(); i++) {
-        if(nourritures[i].getvalue() == 0) {
+        if(nourritures[i].getValeur() == 0) {
             nourritures[i].erase(i);
         }
     }
 
     /** Diminution des pheromones */
     for( int i=0; i<terrain.size(); i++) {
-        terrain[i].downPheromone();
+        for( int j=0; i<terrain.size(); i++) {
+          terrain[i][j].downPheromone();
+      }
     }
 }
 
 void Moteur::reccupererLaNourriture(std::vector<Fourmi> fourmis, std::vector<Nourriture> nourritures)
 {
-    /** on reccupere les fourmis de la cellule */
-    vectorFourmis = fourmis;
-
-    /** on reccupere la nourriture de la cellule */
-    vectorNourritures = nourritures;
 
     /** Pour chaque fourmis de la cellule */
-    for (tmpFourmis in vectorFourmis)
+    for (int i=0; i< fourmis.size(); i++)
     {
         /** on verifie si la fourmi a atteint sa capacite max pour porter de la nourriture */
-        if (tmpFourmis.nourriture == tmpFourmis.nourritureMax)
+        if (fourmis[i].getNourriture() == fourmis[i].getNourritureMax())
         {
             // Elle laisse la nourriture dans la cellule
-            deplacerFourmi(tmpFourmis);
+            deplacerFourmi(&fourmis[i]);
         }
         /** Sinon */
         else
@@ -83,25 +79,25 @@ void Moteur::reccupererLaNourriture(std::vector<Fourmi> fourmis, std::vector<Nou
             ///// LA FOURMI PREND DE LA NOURRITURE AVANT DE PARTIR SI ELLE PEUT //////
 
             /** on calcule la capacite restante de la fourmi */
-            deltaMax = tmpFourmis.nourritureMax - tmpFourmis.nourriture;
+            int deltaMax = int(fourmis[i].getNourritureMax() - fourmis[i].getNourriture());
 
             /** permet de connaitre la nourriture prises par la fourmi */
-            deltaAdd = 0;
+            int deltaAdd = 0;
 
             /** Pour chaque nourriture de la cellule */
-            for (nourriture in vectorNourritures)
+            for (int i=0; i < nourritures.size();i++)
             {
                 /** Tant qu'il reste de la nourriture dans cette objet que l on a pas depasser la capacite de la fourmi */
-                while (nourriture.value > 0 and DetlaMax > deltaAdd)
+                while (nourritures[i].getValeur() > 0 and detlaMax > deltaAdd)
                 {
                     /** Si la valeur de l'objet est egale a la valeur à ajoute, on l'ajoute la totalite */
-                    if (nourriture.value == detlaMax)
+                    if (nourritures[i].getValeur() == detlaMax)
                     {
                         /** On ajoute la valeur de l'objet Nourriture */
-                        detlaAdd = detlaAdd + nourriture.value;
+                        detlaAdd = detlaAdd + nourritures[i].getValeur();
 
                         /** On met a jour la valeur de l'objet Nourriture a 0 */
-                        nourriture.value = 0;
+                        nourritures[i].getValeur() = 0;
                     }
                     /** Sinon on ajoute un par un de la nourriture à la fourmi */
                     else
@@ -110,7 +106,7 @@ void Moteur::reccupererLaNourriture(std::vector<Fourmi> fourmis, std::vector<Nou
                         deltaAdd = deltaAdd + 1;
 
                         /** On met a jour la valeur de l'objet Nourriture */
-                        nourriture.value = nourriture.value - 1;
+                        nourritures[i].setValeur(nourriture.getValeur() - 1);
                     }
                 }
             }

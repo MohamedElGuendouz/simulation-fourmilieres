@@ -17,11 +17,13 @@ class Cellule {
     Cellule();
     Cellule( int coordX, int coordY, T_TYPE_CELLULE type );
 
-    void addContenu(Entite ent);
+    void addEntite(Entite ent);
 
     void addPheromone(int qte) {pheromones += qte;}
 
     T_TYPE_CELLULE getType() const;
 
     void setType(T_TYPE_CELLULE type);
+
+    void downPheromone() {pheromones--;}
 };

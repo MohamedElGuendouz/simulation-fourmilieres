@@ -1,6 +1,4 @@
-#include "entite.h"
-
-class obstacle: public Entite {
+class Obstacle: public Entite {
 
 
 };

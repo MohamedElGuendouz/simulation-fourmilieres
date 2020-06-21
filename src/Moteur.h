@@ -3,22 +3,24 @@
 
 #include "entite.h"
 #include "fourmi.h"
-#include "entite.h"
+#include "nourriture.h"
+#include "obstacle.h"
+#include "cellule.h"
 
 class Moteur {
 
     private:
-        std::vector<fourmi> fourmis;
-        std::vector<nourriture> nourritures;
-        std::vector<std::vector<cellule>> terrain;
-        std::vector<obstacle> obstacles;
+        std::vector<Fourmi> fourmis;
+        std::vector<Nourriture> nourritures;
+        std::vector<std::vector<Cellule>> terrain;
+        std::vector<Obstacle> obstacles;
 
         unsigned int populationMax;
         unsigned int nourritureMax;
 
-        int nbTour:
+        int nbTour;
 
-        bool static partieEnCours;
+        bool partieEnCours;
 
     public:
         Moteur(std::vector<Fourmi> vf, std::vector<Nourriture>  vn, std::vector<std::vector<Cellule>>  vc,std::vector<Obstacle>  vo, int popMax, int nourMax){
@@ -28,6 +30,7 @@ class Moteur {
             this->obstacles = vo;
             populationMax = popMax;
             nourritureMax = nourMax;
+            this->partieEnCours = true;
         }
 
         /** Cette méthode est utilisé pour passer a la prochaine partie **/
@@ -46,11 +49,10 @@ class Moteur {
 
         void reccupererLaNourriture(std::vector<Fourmi> fourmis, std::vector<Nourriture> nourritures);
 
-        void deplacerLesFourmis();
 
         void updateValues();
 
-        void deplacerFourmi(*Fourmi f);
+        void deplacerFourmi(Fourmi *f);
 
         std::vector<Cellule> updateAffichage();
 
@@ -76,5 +78,7 @@ class Moteur {
 
         std::vector<Cellule> getCelluleEnHaut(int i, int j) const;
         std::vector<Cellule> getCelluleEnHaut(Cellule c) const;
+
+        
         
 };
