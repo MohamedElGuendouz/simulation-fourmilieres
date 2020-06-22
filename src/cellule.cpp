@@ -16,10 +16,10 @@ Cellule::Cellule(int coordX, int coordY, T_TYPE_CELLULE type ){
 }
 
 void Cellule::addContenu(Fourmi ent){
-    contenu.push_back(ent);
+    contenu.push_back(&ent);
 }
 
-std::vector<Fourmi>& Cellule::getContenu(){
+std::vector<Fourmi *>& Cellule::getContenu(){
     return contenu;
 }
 

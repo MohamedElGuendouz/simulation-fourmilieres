@@ -10,7 +10,7 @@ class Cellule {
     int y;
     int pheromones;
     T_TYPE_CELLULE type;
-    std::vector<Fourmi> contenu;
+    std::vector<Fourmi *> contenu;
 
     protected:
     int nourriture;
@@ -20,7 +20,7 @@ class Cellule {
     Cellule( int coordX, int coordY, T_TYPE_CELLULE type );
 
     void addContenu(Fourmi ent);
-    std::vector<Fourmi>& getContenu();
+    std::vector<Fourmi *>& getContenu();
 
     int getPheromone() const;
 

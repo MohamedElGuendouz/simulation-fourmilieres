@@ -115,12 +115,12 @@ void Environnement::nouveauTour(){
             //pheromones diminuent
 
             //les actions sur les fourmis dans la cellule
-            std::vector<Fourmi>& fourmis = terrain[i][j].getContenu();
+            std::vector<Fourmi *>& fourmis = terrain[i][j].getContenu();
             for (int k=0; k< fourmis.size();i++){
-                int x = fourmis[k].getAbs();
-                int y = fourmis[k].getOrd();
-                int deplacement = fourmis[k].getParamDeplacement();
-                bool cherche_nourriture = fourmis[k].getChercheNourriture();
+                int x = fourmis[k]->getAbs();
+                int y = fourmis[k]->getOrd();
+                int deplacement = fourmis[k]->getParamDeplacement();
+                bool cherche_nourriture = fourmis[k]->getChercheNourriture();
 
                 if (deplacement > 0) {
                     bool case_trouve = false;
