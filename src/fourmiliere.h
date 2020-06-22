@@ -1,4 +1,5 @@
 #include <vector>
+#include "entite.h"
 
 class Fourmiliere : public Entite {
     private:
