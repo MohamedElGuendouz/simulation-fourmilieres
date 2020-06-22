@@ -1,4 +1,5 @@
 #include "cellule.h"
+#include "singleton.h"
 #include <iostream>
 
 class Environnement : public Singleton<Environnement>{

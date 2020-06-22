@@ -150,7 +150,7 @@ void Moteur::deplacerLesFourmis()
     }
 }
 
-void deplacerFourmi(*Fourmi f)
+void deplacerFourmi(Fourmi* f)
 {
     for (fourmi in this->fourmis)
     {
@@ -213,9 +213,9 @@ void deplacerFourmi(*Fourmi f)
     }
 }
 
-void removeReferenceCellule(*Cellule c, *Fourmi f)
+void removeReferenceCellule(Cellule* c, Fourmi* f)
 {
-    vectorEntite = c.getEntite();
+    std::vector<Entite> vectorEntite = c->getEntite();
     for (int i = 0; i < vectorEntite.size(); i++)
     {
         if (&vectorEntite[i] == &c)
@@ -225,7 +225,7 @@ void removeReferenceCellule(*Cellule c, *Fourmi f)
     }
 }
 
-void deposePheromone(int pheromone, *Cellule c)
+void deposePheromone(int pheromone, Cellule* c)
 {
     c->addPheromone(pheromone);
 }

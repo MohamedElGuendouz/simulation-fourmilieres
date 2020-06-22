@@ -18,6 +18,9 @@ class Cellule {
     Cellule( int coordX, int coordY, T_TYPE_CELLULE type );
 
     void addEntite(Entite ent);
+    void addContenu(Entite ent);
+
+    std::vector<Entite> getEntite(){return contenu;}
 
     void addPheromone(int qte) {pheromones += qte;}
 
