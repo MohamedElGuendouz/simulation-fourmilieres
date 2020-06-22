@@ -8,8 +8,8 @@ fourmi::~fourmi()
 {
   // liberation du positionleau de coord
   std::cout << "destructeur" ;
-  if (abs) delete abs ;
-  if (ord) delete ord ;
+  //if (abs) delete abs ;
+  //if (ord) delete ord ;
 }
 
 /**
