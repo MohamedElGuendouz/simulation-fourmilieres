@@ -119,7 +119,7 @@ void Moteur::reccupererLaNourriture(std::vector<Fourmi> fourmis, std::vector<Nou
 void Moteur::deplacerLesFourmis()
 {
     /** on regarde toutes les cellules du terrain */
-    for (i in this->terrain)
+    for (int i = 0; i < this->terrain.size(); i++)
     {
         /** on regarde si la cellule contiens de la nourriture et une ou plusieurs fourmi(s) */
         if (this->terrain[i].containsFourmi() and this->terrain[i].containsNourriture())
@@ -150,64 +150,64 @@ void Moteur::deplacerLesFourmis()
     }
 }
 
-void deplacerFourmi(Fourmi* f)
+void Moteur::deplacerFourmi(Fourmi* f)
 {
-    for (fourmi in this->fourmis)
+    for (int i = 0; i < this->fourmis.size(); i++)
     {
-        if (*f == *fourmi)
+        if (f == &this->fourmis[i])
         {
-            cellules = getCelluleAutour(f->getAbs(), f->getOrd());
-            if (*f.modeExploration() == "Explorateur")
+            std::vector<Cellule> cellules = getCelluleAutour(f->getAbs(), f->getOrd());
+            if (f->modeExploration() == EXPLORATION)
             {
                 bool findCellule = false;
-                for (c in cellules)
+                for (int j = 0; j < cellules.size(); j++)
                 {
                     /** si une cellule contient de la nourriture, elle se deplace dessus */
                     if (!findCellule)
                     {
-                        if (c.contientNourriture())
+                        if (cellules[j].contientNourriture())
                         {
                             findCellule = true;
-                            deposePheromone(1,*c);
-                            c.addEntite(*f);
-                            removeReferenceCellule(*c, *f);
+                            deposePheromone(1,&cellules[j]);
+                            cellules[j].addEntite(*f);
+                            removeReferenceCellule(&cellules[j], f);
                         }
                     }
                 }
                 if (!findCellule)
                 {
-                    for (c in cellules)
+                    for (int j = 0; j < cellules.size(); j++)
                     {
                         /** si une cellule contient de la nourriture, elle se deplace dessus */
                         if (!findCellule)
                         {
-                            if (c.contientPasObstacle())
+                            if (cellules[j].contientPasObstacle())
                             {
                                 findCellule = true;
-                                deposePheromone(1,*c);
-                                *c.addEntite(*f);
-                                removeReferenceCellule(*c, *f);
+                                deposePheromone(1,&cellules[j]);
+                                cellules[j].addEntite(*f);
+                                removeReferenceCellule(&cellules[j], f);
                             }
                         }
                     }
                 }
             }
-            if (*f.modeExploration() == "Ravitaillement")
+            if (f->modeExploration() == RAVITAILLEMENT)
             {
-                *Cellule celluleMaxPheromone = *cellules[0];
-                for (c in cellules)
+                Cellule* celluleMaxPheromone = &cellules[0];
+                for (int j = 0; j < cellules.size(); j++)
                 {
-                    if (c.contientPasObstacle())
+                    if (cellules[j].contientPasObstacle())
                     {
-                        if (c.pheromone > celluleMaxPheromone.pheromone)
+                        if (cellules[j].getPheromone() > celluleMaxPheromone->getPheromone())
                         {
-                            celluleMaxPheromone = c;
+                            celluleMaxPheromone = &cellules[j];
                         }
                     }
                 }
-                deposePheromone(1,*celluleMaxPheromone);
-                celluleMaxPheromone.addEntite(*f);
-                removeReferenceCellule(*celluleMaxPheromone, *f);
+                deposePheromone(1,celluleMaxPheromone);
+                celluleMaxPheromone->addEntite(*f);
+                removeReferenceCellule(celluleMaxPheromone, f);
             }
         }
     }
@@ -215,13 +215,16 @@ void deplacerFourmi(Fourmi* f)
 
 void removeReferenceCellule(Cellule* c, Fourmi* f)
 {
+    std::vector<Entite>::iterator it; 
     std::vector<Entite> vectorEntite = c->getEntite();
-    for (int i = 0; i < vectorEntite.size(); i++)
+    int i =0;
+    for (it = vectorEntite.begin(); it != vectorEntite.end(); it++)
     {
-        if (&vectorEntite[i] == &c)
+        if (&vectorEntite[i] == f)
         {
-            vectorEntite.erase(i);
+            vectorEntite.erase(it);
         }
+        i++;
     }
 }
 

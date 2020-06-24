@@ -27,6 +27,10 @@ class Cellule {
     T_TYPE_CELLULE getType() const;
 
     void setType(T_TYPE_CELLULE type);
+    int getPheromone(){return pheromones;}
 
     void downPheromone() {pheromones--;}
+
+    bool contientNourriture() {if(nourriture>0) return true; return false;}
+    bool contientPasObstacle() {if(type == OBSTACLE)return false;return true;}
 };
