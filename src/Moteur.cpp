@@ -39,20 +39,24 @@ void Moteur::updateValues()
 /** Cette méthode est utilisé pour supprimé de la matrice les entités mortes **/
 void Moteur::garbageEntite()
 {
+    std::vector<Fourmi>::iterator it;
     /** Supprimer les fourmis mortes */
-    for( int i=0; i<fourmis.size(); i++) {
+    int i =0;
+    for (it = fourmis.begin(); it != fourmis.end(); it++,i++) {
         if(fourmis[i].getLifeValue() == 0) {
-            fourmis[i].erase(i);
+            fourmis.erase(it);
         }
     }
 
+    std::vector<Nourriture>::iterator ite;
     /** Supprimer les nourritures avec une valeur a 0 */
-    for( int i=0; i<nourritures.size(); i++) {
+    int i =0;
+    for (ite = nourritures.begin(); ite != nourritures.end(); ite++,i++) {
         if(nourritures[i].getValeur() == 0) {
-            nourritures[i].erase(i);
+            nourritures.erase(ite);
         }
     }
-
+    
     /** Diminution des pheromones */
     for( int i=0; i<terrain.size(); i++) {
         for( int j=0; i<terrain.size(); i++) {
