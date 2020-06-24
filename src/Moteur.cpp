@@ -121,31 +121,34 @@ void Moteur::deplacerLesFourmis()
     /** on regarde toutes les cellules du terrain */
     for (int i = 0; i < this->terrain.size(); i++)
     {
-        /** on regarde si la cellule contiens de la nourriture et une ou plusieurs fourmi(s) */
-        if (this->terrain[i].containsFourmi() and this->terrain[i].containsNourriture())
+        for (int j = 0; j < this->terrain[i].size(); j++)
         {
-            /** Les fourmis reccupere la nourriture */
-            reccupererLaNourriture(this->terrain[i].getFourmi(), this->terrain[i].getNourriture())
-
-                /** on deplace les fourmis */
-                deplacerFourmi(tmpFourmis);
-        }
-        /** Si la cellule contient une ou plusieurs fourmis mais pas de nourriture */
-        else if (this->terrain[i].containsFourmi())
-        {
-            /** On reccupere les fourmis */
-            tmpFourmis = this->terrain[i].getFourmi();
-
-            /** pour chaque fourmi de la cellule*/
-            for (fourmi in tmpFourmis)
+            /** on regarde si la cellule contiens de la nourriture et une ou plusieurs fourmi(s) */
+            if (this->terrain[i][j].containsFourmi() and this->terrain[i][j].contientNourriture())
             {
-                /** on deplace la fourmi suivant son mode de deplacement */
-                deplacerFourmi(fourmi);
+                /** Les fourmis reccupere la nourriture */
+                reccupererLaNourriture(this->terrain[i][j].getFourmi(), this->terrain[i][j].getNourriture())
+
+                    /** on deplace les fourmis */
+                    deplacerFourmi(tmpFourmis);
             }
-        }
-        else
-        {
-            // On n'applique pas de deplacement dans cette cellule
+            /** Si la cellule contient une ou plusieurs fourmis mais pas de nourriture */
+            else if (this->terrain[i][j].containsFourmi())
+            {
+                /** On reccupere les fourmis */
+                std::vector<Fourmi> tmpFourmis = this->terrain[i][j].getFourmi();
+
+                /** pour chaque fourmi de la cellule*/
+                for (int l= 0; l < tmpFourmis.size(); l++)
+                {
+                    /** on deplace la fourmi suivant son mode de deplacement */
+                    deplacerFourmi(tmpFourmis[l]);
+                }
+            }
+            else
+            {
+                // On n'applique pas de deplacement dans cette cellule
+            }
         }
     }
 }

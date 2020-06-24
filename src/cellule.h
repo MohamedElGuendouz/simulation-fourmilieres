@@ -28,9 +28,12 @@ class Cellule {
 
     void setType(T_TYPE_CELLULE type);
     int getPheromone(){return pheromones;}
+    int getNourriture(){return nourriture;}
 
     void downPheromone() {pheromones--;}
 
     bool contientNourriture() {if(nourriture>0) return true; return false;}
     bool contientPasObstacle() {if(type == OBSTACLE)return false;return true;}
+
+    bool containsFourmi();
 };
