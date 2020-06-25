@@ -1,5 +1,4 @@
 #include <cstddef>
-#include "entite.h"
 
 typedef enum { LARVE , OEUF , FOURMI } T_ETAT_FOURMI ;
 typedef enum { REINE , GUERRIERE , OUVRIERE } T_STATUS_FOURMI ;

@@ -41,8 +41,8 @@ void Moteur::garbageEntite()
 {
     std::vector<Fourmi>::iterator it;
     /** Supprimer les fourmis mortes */
-    int i =0;
-    for (it = fourmis.begin(); it != fourmis.end(); it++,i++) {
+    int intFourmis=0;
+    for (it = fourmis.begin(); it != fourmis.end(); it++,intFourmis++) {
         if(fourmis[i].getLifeValue() == 0) {
             fourmis.erase(it);
         }
@@ -50,9 +50,9 @@ void Moteur::garbageEntite()
 
     std::vector<Nourriture>::iterator ite;
     /** Supprimer les nourritures avec une valeur a 0 */
-    int i =0;
-    for (ite = nourritures.begin(); ite != nourritures.end(); ite++,i++) {
-        if(nourritures[i].getValeur() == 0) {
+    int intNourriture=0;
+    for (ite = nourritures.begin(); ite != nourritures.end(); ite++,intNourriture++) {
+        if(nourritures[intNourriture].getValeur() == 0) {
             nourritures.erase(ite);
         }
     }
@@ -92,16 +92,16 @@ void Moteur::reccupererLaNourriture(std::vector<Fourmi> fourmis, std::vector<Nou
             for (int i=0; i < nourritures.size();i++)
             {
                 /** Tant qu'il reste de la nourriture dans cette objet que l on a pas depasser la capacite de la fourmi */
-                while (nourritures[i].getValeur() > 0 and detlaMax > deltaAdd)
+                while (nourritures[i].getValeur() > 0 and deltaMax > deltaAdd)
                 {
                     /** Si la valeur de l'objet est egale a la valeur à ajoute, on l'ajoute la totalite */
-                    if (nourritures[i].getValeur() == detlaMax)
+                    if (nourritures[i].getValeur() == deltaMax)
                     {
                         /** On ajoute la valeur de l'objet Nourriture */
-                        detlaAdd = detlaAdd + nourritures[i].getValeur();
+                        deltaAdd = deltaAdd + nourritures[i].getValeur();
 
                         /** On met a jour la valeur de l'objet Nourriture a 0 */
-                        nourritures[i].getValeur() = 0;
+                        nourritures[i].setValeur(0);
                     }
                     /** Sinon on ajoute un par un de la nourriture à la fourmi */
                     else
@@ -110,12 +110,12 @@ void Moteur::reccupererLaNourriture(std::vector<Fourmi> fourmis, std::vector<Nou
                         deltaAdd = deltaAdd + 1;
 
                         /** On met a jour la valeur de l'objet Nourriture */
-                        nourritures[i].setValeur(nourriture.getValeur() - 1);
+                        nourritures[i].setValeur(nourritures[i].getValeur() - 1);
                     }
                 }
             }
+            fourmis[i].setNourriture(fourmis[i].getNourriture()+deltaAdd);
         }
-        tmpFourmis.ajouterNourriture(deltaAdd);
     }
 }
 
@@ -131,27 +131,21 @@ void Moteur::deplacerLesFourmis()
             if (this->terrain[i][j].containsFourmi() and this->terrain[i][j].contientNourriture())
             {
                 /** Les fourmis reccupere la nourriture */
-                reccupererLaNourriture(this->terrain[i][j].getFourmi(), this->terrain[i][j].getNourriture())
+                reccupererLaNourriture(this->terrain[i][j].getFourmi(), this->terrain[i][j].getNourriture());
 
-                    /** on deplace les fourmis */
-                    deplacerFourmi(tmpFourmis);
+                /** on deplace les fourmis */
+                deplacerFourmi(this->terrain[i][j].getFourmi());
             }
             /** Si la cellule contient une ou plusieurs fourmis mais pas de nourriture */
             else if (this->terrain[i][j].containsFourmi())
             {
-                /** On reccupere les fourmis */
-                std::vector<Fourmi> tmpFourmis = this->terrain[i][j].getFourmi();
-
+                std::vector<Fourmi>::iterator it;
+                int itn=0;
                 /** pour chaque fourmi de la cellule*/
-                for (int l= 0; l < tmpFourmis.size(); l++)
-                {
+                for (it = this->terrain[i][j].getFourmi().begin(); it != this->terrain[i][j].getFourmi().end(); it++,itn++) {
                     /** on deplace la fourmi suivant son mode de deplacement */
-                    deplacerFourmi(tmpFourmis[l]);
+                    deplacerFourmi(this->terrain[i][j].getFourmi()[itn]);
                 }
-            }
-            else
-            {
-                // On n'applique pas de deplacement dans cette cellule
             }
         }
     }

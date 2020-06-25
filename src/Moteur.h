@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 
-#include "entite.h"
 #include "fourmi.h"
 #include "nourriture.h"
 #include "obstacle.h"
@@ -12,7 +11,7 @@ class Moteur {
     private:
         std::vector<Fourmi> fourmis;
         std::vector<Nourriture> nourritures;
-        std::vector<std::vector<Cellule>> terrain;
+        std::vector< std::vector<Cellule> > terrain;
         std::vector<Obstacle> obstacles;
 
         unsigned int populationMax;
@@ -23,7 +22,7 @@ class Moteur {
         bool partieEnCours;
 
     public:
-        Moteur(std::vector<Fourmi> vf, std::vector<Nourriture>  vn, std::vector<std::vector<Cellule>>  vc,std::vector<Obstacle>  vo, int popMax, int nourMax){
+        Moteur(std::vector<Fourmi> vf, std::vector<Nourriture>  vn, std::vector< std::vector<Cellule> >  vc,std::vector<Obstacle>  vo, int popMax, int nourMax){
             this->fourmis = vf;
             this->nourritures = vn;
             this->terrain = vc;
@@ -49,10 +48,13 @@ class Moteur {
 
         void reccupererLaNourriture(std::vector<Fourmi> fourmis, std::vector<Nourriture> nourritures);
 
+        void deposePheromone(int i, Cellule* c);
+
+        void removeReferenceCellule(Cellule* c, Fourmi* f);
 
         void updateValues();
 
-        void deplacerFourmi(Fourmi *f);
+        void deplacerFourmi(Fourmi* f);
 
         std::vector<Cellule> updateAffichage();
 
@@ -62,7 +64,7 @@ class Moteur {
 
         std::vector<Nourriture> getNourritures() const;
         
-        std::vector<std::vector<Cellule>> getMatrice() const;
+        std::vector< std::vector<Cellule> > getMatrice() const;
 
         std::vector<Cellule> getCelluleAutour(int i, int j) const;
         std::vector<Cellule> getCelluleAutour(Cellule c) const;

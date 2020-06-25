@@ -17,8 +17,7 @@ class Cellule {
     Cellule();
     Cellule( int coordX, int coordY, T_TYPE_CELLULE type );
 
-    void addEntite(Entite ent);
-    void addContenu(Entite ent);
+    void addEntite(Entite ent){this->contenu.push_back(ent);}
 
     std::vector<Entite> getEntite(){return contenu;}
 
@@ -36,4 +35,6 @@ class Cellule {
     bool contientPasObstacle() {if(type == OBSTACLE)return false;return true;}
 
     bool containsFourmi();
+
+    std::vector<Fourmi> getFourmi();
 };
