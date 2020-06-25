@@ -1,3 +1,4 @@
+#include <typeinfo>
 #include "cellule.h"
 
 Cellule::Cellule(){
@@ -18,8 +19,6 @@ void Cellule::setType(T_TYPE_CELLULE type) {
 T_TYPE_CELLULE Cellule::getType() const {
     return type;
 }
-
-#include <typeinfo>
 
 std::vector<Fourmi> Cellule::getFourmi() {
     /** Pour chaque nourriture de la cellule */

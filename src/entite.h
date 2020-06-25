@@ -1,3 +1,6 @@
+#ifndef ENTITE_H
+#define ENTITE_H
+
 class Entite{
     protected:
         int x;
@@ -8,3 +11,4 @@ class Entite{
 
         }
 };
+#endif 

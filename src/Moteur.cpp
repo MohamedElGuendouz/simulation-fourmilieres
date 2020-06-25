@@ -43,7 +43,7 @@ void Moteur::garbageEntite()
     /** Supprimer les fourmis mortes */
     int intFourmis=0;
     for (it = fourmis.begin(); it != fourmis.end(); it++,intFourmis++) {
-        if(fourmis[i].getLifeValue() == 0) {
+        if(fourmis[intFourmis].getLifeValue() == 0) {
             fourmis.erase(it);
         }
     }

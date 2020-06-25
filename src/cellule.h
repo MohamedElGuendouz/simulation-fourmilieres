@@ -1,11 +1,11 @@
 #include <vector>
 #include "fourmiliere.h"
+#include "fourmi.h"
 
 typedef enum { LIBRE, OBSTACLE, NOURRITURE, FOURMILIERE } T_TYPE_CELLULE ;
 
 class Cellule {
-    private:
-    
+  private:
     int x;
     int y;
     int pheromones;
@@ -13,11 +13,13 @@ class Cellule {
     T_TYPE_CELLULE type;
     std::vector<Entite> contenu;
 
-    public:
+  public:
     Cellule();
-    Cellule( int coordX, int coordY, T_TYPE_CELLULE type );
+    Cellule(int coordX, int coordY, T_TYPE_CELLULE type );
 
-    void addEntite(Entite ent){this->contenu.push_back(ent);}
+    void addEntite(Entite ent){
+      this->contenu.push_back(ent);
+    }
 
     std::vector<Entite> getEntite(){return contenu;}
 

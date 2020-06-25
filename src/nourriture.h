@@ -1,3 +1,5 @@
+#include "entite.h"
+
 class Nourriture: public Entite {
 
 	private:

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
-#include "fourmiliere.h"
+#include "Moteur.h"
 
 using namespace std;
 
@@ -81,21 +81,58 @@ void lauchGame ( int row, int col, int obs, int nour, double absphero) {
 
     afficherEnvironnement(row, col);
 }
+
+void updateGame(int row, int col, int i) {
+  /* code */
+  afficherEnvironnement(row,col);
+  std::cout << "Partie : "<< i << std::endl;
+}
 #include <unistd.h>
 
 int main () {
   int row, col;
   row = 5;
   col = 10;
+  int fourmis=5;
+  int nourritures=5;
+  int obstacles=5;
 
+  /**std::vector<Fourmi> *vf;
+  for (size_t i = 0; i < fourmis; i++)
+  {
+    vf[i] = new Fourmi();
+  }
   
+  std::vector<Nourriture> *vn;
+  for (size_t i = 0; i < nourritures; i++)
+  {
+    vn[i] = new Fourmi();
+  }
+  
+  std::vector<Obstacle>  *vo;
+  for (size_t i = 0; i < obstacles; i++)
+  {
+    vo[i] = new Obstacle();
+  }*/
+  int popMax=5;
+  int nourMax=10;
+
+  std::vector< std::vector<Cellule> > *vc;
+  for (size_t i = 0; i < row; i++)
+  {
+    for (size_t j = 0; i < col; i++)
+    {
+      /* code */
+      vc[i][j].push_back(Cellule());
+    }
+  }
+
+  //Moteur moteur = new Moteur(vf,vn,vc,vo,popMax,nourMax);
   lauchGame(row,col,10,5,0.95);
   for (size_t i = 0; i < 15; i++)
   {
-    /* code */
-    afficherEnvironnement(row,col);
-    std::cout << "Partie : "<< i << std::endl;
-    addObject("🥗", getRandInt(0,row),getRandInt(0,col));
+    
+    updateGame(row,col,i);
     usleep(999999);
     system("clear");
   }

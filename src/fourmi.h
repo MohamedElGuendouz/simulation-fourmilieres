@@ -1,5 +1,5 @@
 #include <cstddef>
-
+#include "entite.h"
 typedef enum { LARVE , OEUF , FOURMI } T_ETAT_FOURMI ;
 typedef enum { REINE , GUERRIERE , OUVRIERE } T_STATUS_FOURMI ;
 typedef enum { EXPLORATION , RAVITAILLEMENT , AUFRONT } T_EXPLORATION_FOURMI ;
@@ -21,7 +21,7 @@ class Fourmi : public Entite {
     public:
         Fourmi(int x, int y, T_ETAT_FOURMI etat,T_STATUS_FOURMI status):abs(x),ord(y),etat(etat),status(status){age = 0;}
         Fourmi(const Fourmi& u):abs(u.abs),ord(u.ord){}
-        ~Fourmi() ;
+        //~Fourmi() ;
         Fourmi& operator=(Fourmi const&) ;
         int getNourriture(){return nourriture;};
         int getNourritureMax(){return nourritureMax;};
