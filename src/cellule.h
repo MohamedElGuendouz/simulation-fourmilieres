@@ -21,6 +21,18 @@ class Cellule {
     void addEntite(Entite* ent){
       this->contenu.push_back(ent);
     }
+    void removeEntite(Entite* ent){
+      std::vector<Entite*>::iterator it; 
+      int i =0;
+      for (it = contenu.begin(); it != contenu.end(); it++)
+      {
+          if (contenu[i] == ent)
+          {
+              contenu.erase(it);
+          }
+          i++;
+      }
+    }
 
     std::vector<Entite*> getEntite(){return contenu;}
 

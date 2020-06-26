@@ -20,6 +20,18 @@ T_TYPE_CELLULE Cellule::getType() const {
     return type;
 }
 
+bool Cellule::containsFourmi(){
+    bool result = false;
+    for (int i=0; i < this->contenu.size();i++)
+    {
+       if(typeid(Fourmi) == typeid(this->contenu[i]))
+        {
+            result = true;;
+        }
+    }
+    return result;
+}
+
 std::vector<Nourriture*> Cellule::getNourritures() {
     /** Pour chaque nourriture de la cellule */
     std::vector<Nourriture*> tmp ;

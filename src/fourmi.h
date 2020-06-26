@@ -50,8 +50,8 @@ class Fourmi : public Entite {
         T_STATUS_FOURMI getStatus(){return status;};
         void setStatus(T_STATUS_FOURMI s){this->status=s;};
 
-        void changeEtat();
-        void changeStatus();
-        void changeExploration();
+        void changeEtat(){};
+        void changeStatus(){};
+        void changeExploration(){};
 
 };

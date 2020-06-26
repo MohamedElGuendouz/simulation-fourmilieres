@@ -217,22 +217,27 @@ void Moteur::deplacerFourmi(Fourmi* f)
     }
 }
 
-void removeReferenceCellule(Cellule* c, Fourmi* f)
-{
-    std::vector<Entite*>::iterator it; 
-    std::vector<Entite*> vectorEntite = c->getEntite();
-    int i =0;
-    for (it = vectorEntite.begin(); it != vectorEntite.end(); it++)
-    {
-        if (vectorEntite[i] == f)
-        {
-            vectorEntite.erase(it);
-        }
-        i++;
+std::vector<Cellule> Moteur::getCelluleAutour(int i, int j) const{
+    std::vector<Cellule> result;
+    if(i>0){
+        result.push_back(terrain[i-1][j]);
     }
+    if(i<terrain.size()-1){
+        result.push_back(terrain[i+1][j]);
+    }
+    if(j>0){
+        result.push_back(terrain[i][j-1]);
+    }
+    if(j<terrain[i].size()-1){
+        result.push_back(terrain[i][j+1]);
+    }
+    return result;
 }
 
-void deposePheromone(int pheromone, Cellule* c)
-{
-    c->addPheromone(pheromone);
+void Moteur::deposePheromone(int i, Cellule* c){
+    c->addPheromone(i);
+}
+
+void Moteur::removeReferenceCellule(Cellule* c, Fourmi* f){
+    c->removeEntite(f);
 }
