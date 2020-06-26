@@ -5,6 +5,7 @@
 //#include "nourriture.h"
 #include "obstacle.h"
 #include "cellule.h"
+#include <time.h> 
 
 class Moteur {
 
@@ -22,11 +23,50 @@ class Moteur {
         bool partieEnCours;
 
     public:
-        Moteur(std::vector<Fourmi> vf, std::vector<Nourriture>  vn, std::vector< std::vector<Cellule> >  vc,std::vector<Obstacle>  vo, int popMax, int nourMax){
-            this->fourmis = vf;
-            this->nourritures = vn;
-            this->terrain = vc;
-            this->obstacles = vo;
+        int getRandInt(int a, int b){ 
+            return rand()%(b-a)+a; 
+        }
+        
+        Moteur(int vf, int vn ,int vo, int popMax, int nourMax)
+        {
+            for (size_t i = 0; i < 5; i++)
+            {
+                for (size_t j = 0; j < 10; j++)
+                {
+                    terrain[i].push_back(Cellule());
+                }
+            }
+            
+            for (size_t i = 0; i < vf; i++)
+            {
+                int xtmp = getRandInt(0,4);
+                int ytmp = getRandInt(0,9);
+                Fourmi fourmitmp = Fourmi(xtmp,ytmp,FOURMI,OUVRIERE);
+                
+                fourmis.push_back(fourmitmp);
+                terrain[xtmp][ytmp].addEntite(&fourmitmp);
+            }
+            
+            for (size_t i = 0; i < vn; i++)
+            {
+                int xtmp = getRandInt(0,4);
+                int ytmp = getRandInt(0,9);
+                Nourriture nourrituretmp = Nourriture(xtmp,ytmp,getRandInt(0,10));
+
+                nourritures.push_back(nourrituretmp);
+                terrain[xtmp][ytmp].addEntite(&nourrituretmp);
+            }
+            
+            for (size_t i = 0; i < vo; i++)
+            {
+                int xtmp = getRandInt(0,4);
+                int ytmp = getRandInt(0,9);
+
+                Obstacle obstacletmp = Obstacle(getRandInt(0,4),getRandInt(0,9));
+                obstacles.push_back(obstacletmp);
+                terrain[xtmp][ytmp].addEntite(&obstacletmp);
+            }
+
             populationMax = popMax;
             nourritureMax = nourMax;
             this->partieEnCours = true;
@@ -64,7 +104,7 @@ class Moteur {
 
         std::vector<Nourriture> getNourritures() const;
         
-        std::vector< std::vector<Cellule> > getMatrice() const;
+        std::vector< std::vector<Cellule> >& getMatrice() {return terrain;};
 
         std::vector<Cellule> getCelluleAutour(int i, int j) const;
         std::vector<Cellule> getCelluleAutour(Cellule c) const;
@@ -79,8 +119,5 @@ class Moteur {
         std::vector<Cellule> getCelluleEnBas(Cellule c) const;
 
         std::vector<Cellule> getCelluleEnHaut(int i, int j) const;
-        std::vector<Cellule> getCelluleEnHaut(Cellule c) const;
-
-        
-        
+        std::vector<Cellule> getCelluleEnHaut(Cellule c) const;     
 };

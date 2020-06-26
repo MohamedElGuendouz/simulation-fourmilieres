@@ -9,9 +9,7 @@ class Fourmi : public Entite {
         T_ETAT_FOURMI etat;
         T_STATUS_FOURMI status;
         T_EXPLORATION_FOURMI exploration;
-
-        int abs;
-        int ord;
+        
         int lifeValue;
         int age;
         int consommation;
@@ -19,8 +17,8 @@ class Fourmi : public Entite {
         int nourritureMax;
 
     public:
-        Fourmi(int x, int y, T_ETAT_FOURMI etat,T_STATUS_FOURMI status):abs(x),ord(y),etat(etat),status(status){age = 0;}
-        Fourmi(const Fourmi& u):abs(u.abs),ord(u.ord){}
+        Fourmi(int x, int y, T_ETAT_FOURMI etat,T_STATUS_FOURMI status):Entite(x,y){age = 0;}
+        Fourmi(const Fourmi& u):Entite(u.x,u.y){}
         //~Fourmi() ;
         Fourmi& operator=(Fourmi const&) ;
         int getNourriture(){return nourriture;};
@@ -31,11 +29,11 @@ class Fourmi : public Entite {
 
         void setCoord(int x, int y);
         void setCoord(double x, double y);
-        int getAbs() const { return abs; }
-        void setAbs(int i) { abs = i ; }
+        int getAbs() const { return this->x; }
+        void setAbs(int i) { this->x = i ; }
 
-        int getOrd() const { return ord; }
-        void setOrd(int i) { ord = i ; }
+        int getOrd() const { return this->y; }
+        void setOrd(int i) { this->y = i ; }
 
         void downLifeValue(){lifeValue--;};
         int getLifeValue(){return lifeValue;};

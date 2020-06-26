@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
-//#include "Moteur.h"
+#include "Moteur.h"
+#include <typeinfo>
 
 using namespace std;
 
@@ -92,45 +93,66 @@ int getRandInt(int a, int b){
 
 void lauchGame ( int row, int col, int obs, int nour, double absphero) {
     initEnvironnement(row, col);
-
-      cout << "-----------------------------------------\n";
+    /*  cout << "-----------------------------------------\n";
       cout << "Ajout des composants dans l'environnement\n";
       cout << "-----------------------------------------\n";
 
-    for (int i=0; i<obs; i++) {
+    for (int o=0; o<obs; o++) {
       addObject("🕳 ", getRandInt(0,row),getRandInt(0,col));
     }
 
-    for (int i=0; i<nour; i++) {
+    for (int n=0; n<nour; n++) {
       addObject(" 🥗 ", getRandInt(0,row),getRandInt(0,col));
     }
 
-    for (int i=0; i<10; i++) {
+    for (int f=0; f<10; f++) {
       addObject(" 🐜 ", getRandInt(0,row),getRandInt(0,col));
     }
 
     addObject("🏔 ", getRandInt(0,row),getRandInt(0,col));
 
     addObject(" 👑 ", getRandInt(0,row),getRandInt(0,col));
-
-    
+    */
     afficherEnvironnement(row, col);
 }
 /** Mettre à jour la matrice en fonction du terrain du moteur*/
-void updateMatrice() {
-  //code
+void updateMatrice(std::vector< std::vector<Cellule> >& terrain) {
+  for (size_t i = 0; i < terrain.size(); i++)
+  {
+    for (size_t j = 0; j < terrain[i].size(); j++)
+    {
+      std::vector<Entite*> entites  = terrain[i][j].getEntite();
+      for (size_t e = 0; e < entites.size(); e++)
+      {
+        if (typeid(entites[e]) == typeid(Obstacle)) {
+          addObject("🕳 ", getRandInt(i,j),getRandInt(i,j));
+        }
+
+        if (typeid(entites[e]) == typeid(Nourriture)) {
+          addObject(" 🥗 ", getRandInt(i,j),getRandInt(i,j));
+        }
+
+        if (typeid(entites[e]) == typeid(Fourmi)) {
+          addObject(" 🐜 ", getRandInt(i,j),getRandInt(i,j));
+        }
+
+        if (typeid(entites[e]) == typeid(Fourmiliere)) {
+          addObject("🏔 ", getRandInt(i,j),getRandInt(i,j));
+        }
+        if (typeid(entites[e]) == typeid(Fourmi)) {
+          Fourmi tmpReine = dynamic_cast<Fourmi&>(*(entites[e]));
+          if(tmpReine.getStatus() == REINE) {
+            addObject(" 👑 ", getRandInt(i,j),getRandInt(i,j));
+          }
+        }
+      }
+    }
+  }
 }
 
-void updateGame(int row, int col, int i) {
+void updateGame(int row, int col, int i, std::vector< std::vector<Cellule> >& t) {
   
-  updateMatrice();
-    //cout <<"\n";
-    //addObject("🕳 ", 2,2);
-    //addObject(" 🥗 ", 2,2);
-    //addObject(" 🐜 ", 2,2);
-    //addObject("🏔 ", 2,2);
-    //addObject(" 👑 ", 2,2);
-    //cout <<"\n";
+  updateMatrice(t);
   afficherEnvironnement(row,col);
   std::cout << "Partie : "<< i << std::endl;
 }
@@ -146,41 +168,13 @@ int main () {
   int nourritures=5;
   int obstacles=5;
 
-  /**std::vector<Fourmi> *vf;
-  for (size_t i = 0; i < fourmis; i++)
-  {
-    vf[i] = new Fourmi();
-  }
-  
-  std::vector<Nourriture> *vn;
-  for (size_t i = 0; i < nourritures; i++)
-  {
-    vn[i] = new Fourmi();
-  }
-  
-  std::vector<Obstacle>  *vo;
-  for (size_t i = 0; i < obstacles; i++)
-  {
-    vo[i] = new Obstacle();
-  }*/
-  int popMax=5;
-  int nourMax=10;
+  Moteur moteur = Moteur(10,5,2,15,15);
 
-  /**std::vector< std::vector<Cellule> > *vc;
-  for (size_t i = 0; i < row; i++)
-  {
-    for (size_t j = 0; i < col; i++)
-    {
-      vc[i][j].push_back(Cellule());
-    }
-  }*/
-
-  //Moteur moteur = new Moteur(vf,vn,vc,vo,popMax,nourMax);
-  lauchGame(row,col,10,5,0.95);
+  lauchGame(row,col,2,5,0.95);
   int partie = 15;
   for (size_t i = 0; i < partie; i++)
   {
-    updateGame(row,col,i);
+    updateGame(row,col,i,moteur.getMatrice());
     usleep(999999);
 
     // Pour garder la dernière mise à jour

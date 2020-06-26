@@ -6,24 +6,20 @@
  */
 Fourmi& Fourmi::operator=(Fourmi const& u)
 {
-  // liberation du positionleau de coord
-    //if (abs) delete abs ;
-    //if (ord) delete ord ;
-
   // initialisation du positionleau de coordonnées
-  abs = u.abs ;
-  ord = u.ord ; 
+  this->x = u.x ;
+  this->y = u.y ; 
 
   return (*this) ;
 }
 
-void Fourmi::setCoord(int abs, int ord){
-  this->abs = abs;
-  this->ord = ord;
+void Fourmi::setCoord(int x, int y){
+  this->x = x;
+  this->y = y;
 }
 
 void Fourmi::setCoord(double x, double y){
   
-  this->abs = int(abs);
-  this->ord = int(ord);
+  this->x = int(x);
+  this->y = int(y);
 }
