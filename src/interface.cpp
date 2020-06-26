@@ -86,8 +86,8 @@ void initEnvironnement(int row, int col) {
 }
 #include <time.h> 
 
-int getRandInt(int a, int b){ 
-  return rand()%(b-a)+a; 
+int getRandInt(int a, int b){ 
+  return rand()%(b-a)+a; 
 }
 
 void lauchGame ( int row, int col, int obs, int nour, double absphero) {
