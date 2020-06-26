@@ -27,7 +27,7 @@ void Moteur::updateMatrice()
 void Moteur::updateValues()
 {
     /** Mettre à jour la vie de chaque fourmis */
-    for( int i=0; i<fourmis.size(); i++) {
+    for(unsigned int i=0; i<fourmis.size(); i++) {
         fourmis[i].downLifeValue();
         fourmis[i].upYear();
         fourmis[i].changeEtat();
@@ -58,7 +58,7 @@ void Moteur::garbageEntite()
     }
     
     /** Diminution des pheromones */
-    for( int i=0; i<terrain.size(); i++) {
+    for(unsigned int i=0; i<terrain.size(); i++) {
         for( int j=0; i<terrain.size(); i++) {
           terrain[i][j].downPheromone();
       }
@@ -69,7 +69,7 @@ void Moteur::reccupererLaNourriture(std::vector<Fourmi*> fourmis, std::vector<No
 {
 
     /** Pour chaque fourmis de la cellule */
-    for (int i=0; i< fourmis.size(); i++)
+    for (unsigned int i=0; i< fourmis.size(); i++)
     {
         /** on verifie si la fourmi a atteint sa capacite max pour porter de la nourriture */
         if (fourmis[i]->getNourriture() == fourmis[i]->getNourritureMax())
@@ -89,7 +89,7 @@ void Moteur::reccupererLaNourriture(std::vector<Fourmi*> fourmis, std::vector<No
             int deltaAdd = 0;
 
             /** Pour chaque nourriture de la cellule */
-            for (int i=0; i < nourritures.size();i++)
+            for (unsigned int i=0; i < nourritures.size();i++)
             {
                 /** Tant qu'il reste de la nourriture dans cette objet que l on a pas depasser la capacite de la fourmi */
                 while (nourritures[i]->getValeur() > 0 and deltaMax > deltaAdd)
@@ -123,9 +123,9 @@ void Moteur::reccupererLaNourriture(std::vector<Fourmi*> fourmis, std::vector<No
 void Moteur::deplacerLesFourmis()
 {
     /** on regarde toutes les cellules du terrain */
-    for (int i = 0; i < this->terrain.size(); i++)
+    for (unsigned int i = 0; i < this->terrain.size(); i++)
     {
-        for (int j = 0; j < this->terrain[i].size(); j++)
+        for (unsigned int j = 0; j < this->terrain[i].size(); j++)
         {
             /** on regarde si la cellule contiens de la nourriture et une ou plusieurs fourmi(s) */
             if (this->terrain[i][j].containsFourmi() and this->terrain[i][j].contientNourriture())
@@ -156,7 +156,7 @@ void Moteur::deplacerLesFourmis()
 
 void Moteur::deplacerFourmi(Fourmi* f)
 {
-    for (int i = 0; i < this->fourmis.size(); i++)
+    for (unsigned int i = 0; i < this->fourmis.size(); i++)
     {
         if (f == &this->fourmis[i])
         {
@@ -164,7 +164,7 @@ void Moteur::deplacerFourmi(Fourmi* f)
             if (f->modeExploration() == EXPLORATION)
             {
                 bool findCellule = false;
-                for (int j = 0; j < cellules.size(); j++)
+                for (unsigned int j = 0; j < cellules.size(); j++)
                 {
                     /** si une cellule contient de la nourriture, elle se deplace dessus */
                     if (!findCellule)
@@ -180,7 +180,7 @@ void Moteur::deplacerFourmi(Fourmi* f)
                 }
                 if (!findCellule)
                 {
-                    for (int j = 0; j < cellules.size(); j++)
+                    for (unsigned int j = 0; j < cellules.size(); j++)
                     {
                         /** si une cellule contient de la nourriture, elle se deplace dessus */
                         if (!findCellule)
@@ -199,7 +199,7 @@ void Moteur::deplacerFourmi(Fourmi* f)
             if (f->modeExploration() == RAVITAILLEMENT)
             {
                 Cellule* celluleMaxPheromone = &cellules[0];
-                for (int j = 0; j < cellules.size(); j++)
+                for (unsigned int j = 0; j < cellules.size(); j++)
                 {
                     if (cellules[j].contientPasObstacle())
                     {
@@ -217,7 +217,7 @@ void Moteur::deplacerFourmi(Fourmi* f)
     }
 }
 
-std::vector<Cellule> Moteur::getCelluleAutour(int i, int j) const{
+std::vector<Cellule> Moteur::getCelluleAutour( unsigned int i,unsigned int j) const{
     std::vector<Cellule> result;
     if(i>0){
         result.push_back(terrain[i-1][j]);

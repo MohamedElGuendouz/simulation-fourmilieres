@@ -106,7 +106,7 @@ class Moteur {
         
         std::vector< std::vector<Cellule> >& getMatrice() {return terrain;};
 
-        std::vector<Cellule> getCelluleAutour(int i, int j) const;
+        std::vector<Cellule> getCelluleAutour(unsigned int i,unsigned int j) const;
         std::vector<Cellule> getCelluleAutour(Cellule c) const;
 
         std::vector<Cellule> getCelluleADroite(int i, int j) const;
