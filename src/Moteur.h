@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "fourmi.h"
+//#include "fourmi.h"
 #include "nourriture.h"
 #include "obstacle.h"
 #include "cellule.h"

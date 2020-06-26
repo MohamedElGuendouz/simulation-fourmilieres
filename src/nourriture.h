@@ -7,5 +7,5 @@ class Nourriture: public Entite {
 	
 	public: 
 		int getValeur(){return valeur;};
-		int setValeur(int v){valeur = v;};
+		void setValeur(int v){valeur = v;};
 };

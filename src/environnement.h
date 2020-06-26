@@ -1,4 +1,4 @@
-#include "cellule.h"
+/* #include "cellule.h"
 #include "singleton.h"
 #include <iostream>
 
@@ -41,4 +41,4 @@ class Environnement : public Singleton<Environnement>{
         std::cout<< "obstacle : "<< o <<std::endl;
         std::cout<< "nourriture : "<< n <<std::endl;
     }
-};
+}; */

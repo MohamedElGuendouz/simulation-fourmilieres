@@ -1,4 +1,4 @@
-#include "environnement.h"
+/* #include "environnement.h"
 
 Environnement::Environnement(){
     largeur = 100;
@@ -84,4 +84,4 @@ void Environnement::affiche(){
         }
     }
     std::cout<<std::endl;
-}
+} */
