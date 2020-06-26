@@ -16,7 +16,7 @@ class Cellule {
 
   public:
     Cellule();
-    Cellule(int coordX, int coordY, T_TYPE_CELLULE type );
+    Cellule(int coordX, int coordY,int p,int n, T_TYPE_CELLULE t):x(coordX),y(coordY),pheromones(p),nourriture(n),type(t){};
 
     void addEntite(Entite* ent){
       this->contenu.push_back(ent);

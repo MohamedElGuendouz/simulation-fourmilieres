@@ -31,10 +31,14 @@ class Moteur {
         {
             for (size_t i = 0; i < 5; i++)
             {
+                std::vector<Cellule> vectorTmp;
+
                 for (size_t j = 0; j < 10; j++)
                 {
-                    terrain[i].push_back(Cellule());
+                    Cellule celluletmp = Cellule(i,j,0,0,LIBRE);
+                    vectorTmp.push_back(celluletmp);
                 }
+                terrain.push_back(vectorTmp);
             }
             
             for (size_t i = 0; i < vf; i++)
