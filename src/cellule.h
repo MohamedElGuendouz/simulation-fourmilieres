@@ -1,6 +1,7 @@
 #include <vector>
 #include "fourmiliere.h"
 #include "fourmi.h"
+#include "nourriture.h"
 
 typedef enum { LIBRE, OBSTACLE, NOURRITURE, FOURMILIERE } T_TYPE_CELLULE ;
 
@@ -11,17 +12,17 @@ class Cellule {
     int pheromones;
     int nourriture;
     T_TYPE_CELLULE type;
-    std::vector<Entite> contenu;
+    std::vector<Entite*> contenu;
 
   public:
     Cellule();
     Cellule(int coordX, int coordY, T_TYPE_CELLULE type );
 
-    void addEntite(Entite ent){
+    void addEntite(Entite* ent){
       this->contenu.push_back(ent);
     }
 
-    std::vector<Entite> getEntite(){return contenu;}
+    std::vector<Entite*> getEntite(){return contenu;}
 
     void addPheromone(int qte) {pheromones += qte;}
 
@@ -29,7 +30,6 @@ class Cellule {
 
     void setType(T_TYPE_CELLULE type);
     int getPheromone(){return pheromones;}
-    int getNourriture(){return nourriture;}
 
     void downPheromone() {pheromones--;}
 
@@ -38,5 +38,6 @@ class Cellule {
 
     bool containsFourmi();
 
-    std::vector<Fourmi> getFourmi();
+    std::vector<Nourriture*> getNourritures();
+    std::vector<Fourmi*> getFourmi();
 };

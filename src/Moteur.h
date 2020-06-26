@@ -2,7 +2,7 @@
 #include <vector>
 
 //#include "fourmi.h"
-#include "nourriture.h"
+//#include "nourriture.h"
 #include "obstacle.h"
 #include "cellule.h"
 
@@ -46,7 +46,7 @@ class Moteur {
 
         void updateMatrice();
 
-        void reccupererLaNourriture(std::vector<Fourmi> fourmis, std::vector<Nourriture> nourritures);
+        void reccupererLaNourriture(std::vector<Fourmi*> fourmis, std::vector<Nourriture*> nourritures);
 
         void deposePheromone(int i, Cellule* c);
 

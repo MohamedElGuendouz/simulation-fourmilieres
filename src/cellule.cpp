@@ -20,14 +20,27 @@ T_TYPE_CELLULE Cellule::getType() const {
     return type;
 }
 
-std::vector<Fourmi> Cellule::getFourmi() {
+std::vector<Nourriture*> Cellule::getNourritures() {
     /** Pour chaque nourriture de la cellule */
-    std::vector<Fourmi> tmp ;
+    std::vector<Nourriture*> tmp ;
+    for (int i=0; i < this->contenu.size();i++)
+    {
+       if(typeid(Nourriture) == typeid(this->contenu[i]))
+        {
+            tmp.push_back(&(dynamic_cast<Nourriture&>(*this->contenu[i])));
+        }
+    }
+    return tmp;
+}
+
+std::vector<Fourmi*> Cellule::getFourmi() {
+    /** Pour chaque nourriture de la cellule */
+    std::vector<Fourmi*> tmp ;
     for (int i=0; i < this->contenu.size();i++)
     {
        if(typeid(Fourmi) == typeid(this->contenu[i]))
         {
-            tmp.push_back(dynamic_cast<const Fourmi&>(this->contenu[i]));
+            tmp.push_back(&(dynamic_cast<Fourmi&>(*this->contenu[i])));
         }
     }
     return tmp;
