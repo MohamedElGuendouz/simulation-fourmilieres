@@ -161,8 +161,8 @@ int main (int argc, char *argv[]) {
       {
         for (size_t k = 0; k < moteur.getMatrice()[i][j].getEntite().size(); k++)
         {
+          //cout << moteur.getMatrice()[i][j].getEntite()[k]->getType()<<"\n";
           cout << "[" << i <<"]"<<"[" << j <<"]"<<"[" << k <<"]\n";
-          cout << moteur.getMatrice()[i][j].getEntite()[k]->getType()<<"\n";
         }
       }
     }

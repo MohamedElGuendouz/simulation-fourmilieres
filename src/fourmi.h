@@ -17,8 +17,8 @@ class Fourmi : public Entite {
         int nourritureMax;
 
     public:
-        Fourmi(int x, int y, T_ETAT_FOURMI etat,T_STATUS_FOURMI status, int type):Entite(x,y,type){age = 0;lifeValue=10;}
-        Fourmi(const Fourmi& u):Entite(u.x,u.y,u.type){}
+        Fourmi(int x, int y, T_ETAT_FOURMI etat,T_STATUS_FOURMI status):Entite(x,y,"fourmi"){age = 0;lifeValue=10;}
+        Fourmi(const Fourmi& u):Entite(u.x,u.y,"fourmi"){}
         //~Fourmi() ;
         Fourmi& operator=(Fourmi const&) ;
         int getNourriture(){return nourriture;};

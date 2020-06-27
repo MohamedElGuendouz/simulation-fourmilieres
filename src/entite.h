@@ -7,12 +7,12 @@ class Entite{
     protected:
         int x;
         int y;
-        int type;
+        std::string type;
     public:
         Entite():x(0),y(0){}
-        Entite(int xv, int yv,int t):x(xv),y(yv),type(t){}
+        Entite(int xv, int yv,std::string t):x(xv),y(yv),type(t){}
         virtual void deplace(int x, int y){}
-        virtual int getType(){return this->type;};
+        virtual std::string getType(){return this->type;};
         virtual void affichType(){std::cout<<this->type<<std::endl;}
 };
 #endif 

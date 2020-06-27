@@ -3,6 +3,6 @@
 class Obstacle: public Entite {
 
     public:
-        Obstacle(int xv, int xy,int type):Entite(xv,xy,type){};
+        Obstacle(int xv, int xy):Entite(xv,xy,"obstacle"){};
 
 };

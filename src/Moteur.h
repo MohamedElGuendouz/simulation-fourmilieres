@@ -29,47 +29,46 @@ class Moteur {
         
         Moteur(int vf, int vn ,int vo, int popMax, int nourMax)
         {
-            int hauteur = 5;
-            int largeur = 10;
-
-            terrain.resize(hauteur);
-            for (size_t i = 0; i < hauteur; i++)
+            srand(time(NULL));
+            for (size_t i = 0; i < 5; i++)
             {
-                terrain.resize(largeur);
-                for (size_t j = 0; j < largeur; j++)
+                std::vector<Cellule> vectorTmp;
+                for (size_t j = 0; j < 10; j++)
                 {
-                    terrain[i][j] = Cellule(i,j,0,0,LIBRE);
+                    Cellule celluletmp = Cellule(i,j,0,0,LIBRE);
+                    vectorTmp.push_back(celluletmp);
                 }
+                terrain.push_back(vectorTmp);
             }
             
-            fourmis.clear();
             for (size_t i = 0; i < vf; i++)
             {
                 int xtmp = getRandInt(0,4);
                 int ytmp = getRandInt(0,9);
-                int type = 0;
-                fourmis.push_back(Fourmi(xtmp,ytmp,FOURMI,OUVRIERE,type));
+                Fourmi fourmitmp = Fourmi(xtmp,ytmp,FOURMI,OUVRIERE);
+                
+                fourmis.push_back(fourmitmp);
                 terrain[xtmp][ytmp].addEntite(&fourmis[i]);
             }
             
-            nourritures.clear();
             for (size_t i = 0; i < vn; i++)
             {
                 int xtmp = getRandInt(0,4);
                 int ytmp = getRandInt(0,9);
-                int type = 1;
-                nourritures.push_back(Nourriture(xtmp,ytmp,getRandInt(1,10),type));
-                terrain[xtmp][ytmp].addEntite(&nourritures[i]);
+                Nourriture nourrituretmp = Nourriture(xtmp,ytmp,getRandInt(0,10));
+
+                nourritures.push_back(nourrituretmp);
+                terrain[xtmp][ytmp].addEntite(&nourrituretmp);
             }
             
-            obstacles.clear();
             for (size_t i = 0; i < vo; i++)
             {
                 int xtmp = getRandInt(0,4);
                 int ytmp = getRandInt(0,9);
-                int type = 2;
-                obstacles.push_back(Obstacle(xtmp,ytmp,type));
-                terrain[xtmp][ytmp].addEntite(&obstacles[i]);
+
+                Obstacle obstacletmp = Obstacle(getRandInt(0,4),getRandInt(0,9));
+                obstacles.push_back(obstacletmp);
+                terrain[xtmp][ytmp].addEntite(&obstacletmp);
             }
 
             populationMax = popMax;
@@ -77,10 +76,10 @@ class Moteur {
             this->partieEnCours = true;
         }
 
-        int getNombreEntite();
-
         /** Cette méthode est utilisé pour passer a la prochaine partie **/
         void next();
+
+        int getNombreEntite();
 
         /** Cette méthode est utilisé pour mettre à jour la matrice du terrain **/
         void evolutionDuTerrain();
