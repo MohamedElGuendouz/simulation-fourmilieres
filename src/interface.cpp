@@ -93,7 +93,6 @@ int getRandInt(int a, int b){
 
 void lauchGame ( int row, int col) {
     initEnvironnement(row, col);
-    afficherEnvironnement(row, col);
 }
 /** Mettre à jour la matrice en fonction du terrain du moteur*/
 void updateMatrice(std::vector< std::vector<Cellule> >& terrain) {
@@ -156,6 +155,7 @@ int main (int argc, char *argv[]) {
   int partie = 15;
 for (size_t i = 0; i < partie; i++)
   {
+    cout << "[info] Partie en cours...\n" << std::endl;
     updateGame(row,col,i,moteur.getMatrice());
     moteur.next();
     
@@ -166,20 +166,25 @@ for (size_t i = 0; i < partie; i++)
         for (size_t k = 0; k < moteur.getMatrice()[i][j].getEntite().size(); k++)
         {
           //cout << moteur.getMatrice()[i][j].getEntite()[k]->getType()<<"\n";
-          cout << "[Entite] : [" << i <<"]"<<"[" << j <<"]"<<" indice [" << k <<"]\n";
+          //cout << "[Entite] : [" << i <<"]"<<"[" << j <<"]"<<" indice [" << k <<"]\n";
         }
       }
     }
 
-    cout << "nombre d' entite : "<< moteur.getNombreEntite()<<"\n";
+    //cout << "nombre d' entite : "<< moteur.getNombreEntite()<<"\n";
 
+    if(i==0){
+      cout << "[info] Debut de la partie\n" << std::endl;
+    }
     cout << "Partie : "<< i << std::endl;
     
     usleep(999999);
 
     // Pour garder la dernière mise à jour
-    if(i<partie) {
+    if(i<partie-1) {
       system("clear");
+    }else {
+      cout << "[info] Fin de la partie\n" << std::endl;
     }
   }
 }
