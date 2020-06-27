@@ -29,11 +29,6 @@ class Fourmi : public Entite {
 
         void setCoord(int x, int y);
         void setCoord(double x, double y);
-        int getAbs() const { return this->x; }
-        void setAbs(int i) { this->x = i ; }
-
-        int getOrd() const { return this->y; }
-        void setOrd(int i) { this->y = i ; }
 
         void downLifeValue(){lifeValue--;};
         int getLifeValue(){return lifeValue;};

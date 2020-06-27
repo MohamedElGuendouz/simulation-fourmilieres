@@ -250,3 +250,33 @@ void Moteur::removeReferenceCellule(Cellule* c, Fourmi* f){
 std::vector<Fourmi> Moteur::getFourmis() {
     return this->fourmis;
 }
+
+bool Moteur::containsFourmi(int i, int j) const{
+    bool result = false;
+    int k = 0;
+    while(k<fourmis.size() and !result){
+        if(fourmis[k].getAbs() == i and fourmis[k].getOrd() == j) result = true;
+        k++;
+    }
+    return result;
+}
+
+bool Moteur::containsObstacle(int i, int j) const{
+    bool result = false;
+    int k = 0;
+    while(k<obstacles.size() and !result){
+        if(obstacles[k].getAbs() == i and obstacles[k].getOrd() == j) result = true;
+        k++;
+    }
+    return result;
+}
+
+bool Moteur::containsNourriture(int i, int j) const{
+    bool result = false;
+    int k = 0;
+    while(k<nourritures.size() and !result){
+        if(nourritures[k].getAbs() == i and nourritures[k].getOrd() == j) result = true;
+        k++;
+    }
+    return result;
+}

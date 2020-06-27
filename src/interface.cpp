@@ -57,7 +57,7 @@ string getObject(int i, int j) {
 void afficherEnvironnement(int row, int col) {
   int i,j;
 
-  cout << "-----------------------------------------\n";
+  cout << "\n"<<"-----------------------------------------\n";
   cout << "\n";
   for(i=0; i < row; i++)
   {
@@ -95,45 +95,41 @@ void lauchGame ( int row, int col) {
     initEnvironnement(row, col);
 }
 /** Mettre à jour la matrice en fonction du terrain du moteur*/
-void updateMatrice(std::vector< std::vector<Cellule> >& terrain) {
+void updateMatrice(Moteur* mot) {
 
   //cout << "x [i] = "<<terrain.size();
-  for (size_t i = 0; i < terrain.size(); i++)
+  for (size_t i = 0; i < mot->getHauteur(); i++)
   {
     //cout << "x [j] = "<<terrain[i].size();
-    for (size_t j = 0; j < terrain[i].size(); j++)
-    {
-      std::vector<Entite*> entites  = terrain[i][j].getEntite();
-      for (size_t e = 0; e < entites.size(); e++)
-      {
-        cout << "";
-        if (entites[e]->getType() == "obstacle") {
-          addObject("🕳 ", i,j);
-        }
-        if (entites[e]->getType() == "nourriture") {
-          addObject(" 🥗 ", i,j);
-        }
-        if (entites[e]->getType() == "fourmi") {
-          addObject(" 🐜 ", i,j);
-        }
-        if (entites[e]->getType() == "fourmiliere") {
-          addObject("🏔 ", i,j);
-        }
-        /*if (entites[e]->getType() == "fourmi") {
-          Fourmi tmpReine = dynamic_cast<Fourmi&>(*(entites[e]));
-          if(tmpReine.getStatus() == REINE) {
-            addObject(" 👑 ", i,j);
-          }
-        }*/
+    for (size_t j = 0; j < mot->getLargeur(); j++)
+    {     
+      cout << "";
+      if (mot->containsObstacle(i,j)) {
+        addObject("🕳 ", i,j);
       }
+      if (mot->containsNourriture(i,j)) {
+        addObject(" 🥗 ", i,j);
+      }
+      if (mot->containsFourmi(i,j)) {
+        addObject(" 🐜 ", i,j);
+      }
+      /* if (entites[e]->getType() == "fourmiliere") {
+        addObject("🏔 ", i,j);
+      } */
+      /*if (entites[e]->getType() == "fourmi") {
+        Fourmi tmpReine = dynamic_cast<Fourmi&>(*(entites[e]));
+        if(tmpReine.getStatus() == REINE) {
+          addObject(" 👑 ", i,j);
+        }
+      }*/
     }
   }
 }
 
-void updateGame(int row, int col, int i, std::vector< std::vector<Cellule> >& t) {
+void updateGame(Moteur* mot) {
   
-  //updateMatrice(t);
-  afficherEnvironnement(row,col);
+  updateMatrice(mot);
+  afficherEnvironnement(mot->getHauteur(),mot->getLargeur());
 }
 
 
@@ -141,6 +137,7 @@ void updateGame(int row, int col, int i, std::vector< std::vector<Cellule> >& t)
 
 int main (int argc, char *argv[]) {
 
+  srand(time(NULL));
   int row = 5;
   int col = 10;
 
@@ -149,21 +146,32 @@ int main (int argc, char *argv[]) {
   int nourritures=(int)(long)strtol(argv[2], &p, 10);
   int obstacles=(int)(long)strtol(argv[3], &p, 10);
 
-  Moteur moteur = Moteur(fourmis,nourritures,obstacles,15,15);
+  Moteur moteur = Moteur(fourmis,nourritures,obstacles,15,15,row,col);
 
   lauchGame(row,col);
-  int partie = 15;
+  int partie = 3;
+
+/* for(int n=0;n<5;n++){
+  for(int m=0;m<10;m++){
+    cout<<n<<"  "<<m<< "   ";
+    cout<<moteur.containsFourmi(n,m);
+    cout<<moteur.containsObstacle(n,m);
+    cout<<moteur.containsNourriture(n,m);
+    cout<<endl;
+  }
+} */
+  
 for (size_t i = 0; i < partie; i++)
   {
     if(i%2==0) {
       cout << "[info] Partie en cours.\n" << std::endl;
     } else {
-    cout << "[info] Partie en cours...\n" << std::endl;
+      cout << "[info] Partie en cours...\n" << std::endl;
     }
-    updateGame(row,col,i,moteur.getMatrice());
+    updateGame(&moteur);
     moteur.next();
     
-    for (size_t i = 0; i < moteur.getMatrice().size(); i++)
+    /* for (size_t i = 0; i < moteur.getMatrice().size(); i++)
     {
       for (size_t j = 0; j < moteur.getMatrice()[i].size(); j++)
       {
@@ -173,7 +181,7 @@ for (size_t i = 0; i < partie; i++)
           //cout << "[Entite] : [" << i <<"]"<<"[" << j <<"]"<<" indice [" << k <<"]\n";
         }
       }
-    }
+    } */
 
     //cout << "nombre d' entite : "<< moteur.getNombreEntite()<<"\n";
 

@@ -14,5 +14,11 @@ class Entite{
         virtual void deplace(int x, int y){}
         virtual std::string getType(){return this->type;};
         virtual void affichType(){std::cout<<this->type<<std::endl;}
+
+        int getAbs() const { return this->x; }
+        void setAbs(int i) { this->x = i ; }
+
+        int getOrd() const { return this->y; }
+        void setOrd(int i) { this->y = i ; }
 };
 #endif 
