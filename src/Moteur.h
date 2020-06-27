@@ -41,34 +41,34 @@ class Moteur {
                 terrain.push_back(vectorTmp);
             }
             
+            fourmis.clear();
             for (size_t i = 0; i < vf; i++)
             {
                 int xtmp = getRandInt(0,4);
                 int ytmp = getRandInt(0,9);
-                Fourmi fourmitmp = Fourmi(xtmp,ytmp,FOURMI,OUVRIERE);
                 
-                fourmis.push_back(fourmitmp);
+                fourmis.push_back(Fourmi(xtmp,ytmp,FOURMI,OUVRIERE));
                 terrain[xtmp][ytmp].addEntite(&fourmis[i]);
             }
             
+            nourritures.clear();
             for (size_t i = 0; i < vn; i++)
             {
                 int xtmp = getRandInt(0,4);
                 int ytmp = getRandInt(0,9);
-                Nourriture nourrituretmp = Nourriture(xtmp,ytmp,getRandInt(0,10));
 
-                nourritures.push_back(nourrituretmp);
-                terrain[xtmp][ytmp].addEntite(&nourrituretmp);
+                nourritures.push_back(Nourriture(xtmp,ytmp,getRandInt(1,10)));
+                terrain[xtmp][ytmp].addEntite(&nourritures[i]);
             }
             
+            obstacles.clear();
             for (size_t i = 0; i < vo; i++)
             {
                 int xtmp = getRandInt(0,4);
                 int ytmp = getRandInt(0,9);
 
-                Obstacle obstacletmp = Obstacle(getRandInt(0,4),getRandInt(0,9));
-                obstacles.push_back(obstacletmp);
-                terrain[xtmp][ytmp].addEntite(&obstacletmp);
+                obstacles.push_back(Obstacle(xtmp,ytmp));
+                terrain[xtmp][ytmp].addEntite(&obstacles[i]);
             }
 
             populationMax = popMax;
