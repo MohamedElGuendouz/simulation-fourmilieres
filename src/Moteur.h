@@ -29,16 +29,17 @@ class Moteur {
         
         Moteur(int vf, int vn ,int vo, int popMax, int nourMax)
         {
-            srand(time(NULL));
-            for (size_t i = 0; i < 5; i++)
+            int hauteur = 5;
+            int largeur = 10;
+
+            terrain.resize(hauteur);
+            for (size_t i = 0; i < hauteur; i++)
             {
-                std::vector<Cellule> vectorTmp;
-                for (size_t j = 0; j < 10; j++)
+                terrain.resize(largeur);
+                for (size_t j = 0; j < largeur; j++)
                 {
-                    Cellule celluletmp = Cellule(i,j,0,0,LIBRE);
-                    vectorTmp.push_back(celluletmp);
+                    terrain[i][j] = Cellule(i,j,0,0,LIBRE);
                 }
-                terrain.push_back(vectorTmp);
             }
             
             fourmis.clear();
