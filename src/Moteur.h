@@ -29,6 +29,7 @@ class Moteur {
         
         Moteur(int vf, int vn ,int vo, int popMax, int nourMax)
         {
+            srand(time(NULL));
             for (size_t i = 0; i < 5; i++)
             {
                 std::vector<Cellule> vectorTmp;

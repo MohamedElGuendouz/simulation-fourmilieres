@@ -23,7 +23,7 @@ void addObject(string object, int i, int j) {
   }else if(object == " 🥗 "){
     prioObject=1;
   }
-  cout << matrice[i][j];
+  //cout << matrice[i][j];
 
   int prioMaxCellule=0;
   if(matrice[i][j] == " 🕳  "){
@@ -39,7 +39,7 @@ void addObject(string object, int i, int j) {
   }else if(matrice[i][j] == " ❎ "){
     prioMaxCellule=0;
   }
-    cout << prioObject <<" "<< prioMaxCellule;
+    //cout << prioObject <<" "<< prioMaxCellule;
 
   if(prioObject>prioMaxCellule) {
     if (prioObject >= 4 )
@@ -48,7 +48,7 @@ void addObject(string object, int i, int j) {
         matrice[i][j] = object;
     }
   }
-  cout <<"  ======> ["<<i<<","<<j<<"] = "<<matrice[i][j]<<"\n";
+  //cout <<"  ======> ["<<i<<","<<j<<"] = "<<matrice[i][j]<<"\n";
 
 }
 string getObject(int i, int j) {
@@ -97,15 +97,13 @@ void lauchGame ( int row, int col, int obs, int nour, double absphero) {
 }
 /** Mettre à jour la matrice en fonction du terrain du moteur*/
 void updateMatrice(std::vector< std::vector<Cellule> >& terrain) {
+
   //cout << "x [i] = "<<terrain.size();
-  cout << "";
   for (size_t i = 0; i < terrain.size(); i++)
   {
     //cout << "x [j] = "<<terrain[i].size();
-    cout << "";
     for (size_t j = 0; j < terrain[i].size(); j++)
     {
-      cout << "";
       std::vector<Entite*> entites  = terrain[i][j].getEntite();
       for (size_t e = 0; e < entites.size(); e++)
       {
@@ -128,8 +126,6 @@ void updateMatrice(std::vector< std::vector<Cellule> >& terrain) {
             addObject(" 👑 ", i,j);
           }
         }*/
-        afficherEnvironnement(5,10);
-        system("clear");
       }
     }
   }
@@ -145,13 +141,12 @@ void updateGame(int row, int col, int i, std::vector< std::vector<Cellule> >& t)
 
 #include <unistd.h>
 
-int main () {
-  int row, col;
-  row = 5;
-  col = 10;
-  int fourmis=5;
-  int nourritures=5;
-  int obstacles=5;
+int main (int argc, char *argv[]) {
+  int row = 5;
+  int col = 10;
+  int fourmis=*argv[1];
+  int nourritures=*argv[2];
+  int obstacles=*argv[3];
 
   Moteur moteur = Moteur(10,5,2,15,15);
 
@@ -159,7 +154,7 @@ int main () {
   int partie = 15;
   for (size_t i = 0; i < partie; i++)
   {
-    updateGame(row,col,i,moteur.getMatrice());
+    //updateGame(row,col,i,moteur.getMatrice());
     moteur.next();
     
     usleep(999999);
