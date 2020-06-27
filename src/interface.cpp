@@ -124,27 +124,28 @@ void updateMatrice(std::vector< std::vector<Cellule> >& terrain) {
       std::vector<Entite*> entites  = terrain[i][j].getEntite();
       for (size_t e = 0; e < entites.size(); e++)
       {
-        if (typeid(entites[e]) == typeid(Obstacle)) {
+        std::cout << typeid(entites[e]).name();
+        /*if (entites[e]->getType() == "obstacle") {
           addObject("🕳 ", getRandInt(i,j),getRandInt(i,j));
         }
 
-        if (typeid(entites[e]) == typeid(Nourriture)) {
+        if (entites[e]->getType() == "nourriture") {
           addObject(" 🥗 ", getRandInt(i,j),getRandInt(i,j));
-        }
+        }*/
 
-        if (typeid(entites[e]) == typeid(Fourmi)) {
+        if (entites[e]->getType() == "fourmi") {
           addObject(" 🐜 ", getRandInt(i,j),getRandInt(i,j));
         }
 
-        if (typeid(entites[e]) == typeid(Fourmiliere)) {
+        /*if (entites[e]->getType() == "fourmiliere") {
           addObject("🏔 ", getRandInt(i,j),getRandInt(i,j));
         }
-        if (typeid(entites[e]) == typeid(Fourmi)) {
+        if (entites[e]->getType() == "fourmi") {
           Fourmi tmpReine = dynamic_cast<Fourmi&>(*(entites[e]));
           if(tmpReine.getStatus() == REINE) {
             addObject(" 👑 ", getRandInt(i,j),getRandInt(i,j));
           }
-        }
+        }*/
       }
     }
   }
@@ -175,6 +176,8 @@ int main () {
   for (size_t i = 0; i < partie; i++)
   {
     updateGame(row,col,i,moteur.getMatrice());
+    moteur.next();
+    
     usleep(999999);
 
     // Pour garder la dernière mise à jour
@@ -182,6 +185,4 @@ int main () {
       system("clear");
     }
   }
-
-
 }

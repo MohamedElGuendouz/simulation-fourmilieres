@@ -44,7 +44,7 @@ void Moteur::garbageEntite()
     int intFourmis=0;
     for (it = fourmis.begin(); it != fourmis.end(); it++,intFourmis++) {
         if(fourmis[intFourmis].getLifeValue() == 0) {
-            fourmis.erase(it);
+            //fourmis.erase(it);
         }
     }
 
@@ -52,8 +52,8 @@ void Moteur::garbageEntite()
     /** Supprimer les nourritures avec une valeur a 0 */
     int intNourriture=0;
     for (ite = nourritures.begin(); ite != nourritures.end(); ite++,intNourriture++) {
-        if(nourritures[intNourriture].getValeur() == 0) {
-            nourritures.erase(ite);
+        if(ite[intNourriture].getValeur() == 0) {
+            //nourritures.erase(ite);
         }
     }
     
@@ -240,4 +240,8 @@ void Moteur::deposePheromone(int i, Cellule* c){
 
 void Moteur::removeReferenceCellule(Cellule* c, Fourmi* f){
     c->removeEntite(f);
+}
+
+std::vector<Fourmi> Moteur::getFourmis() {
+    return this->fourmis;
 }

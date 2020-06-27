@@ -9,9 +9,8 @@ class Fourmiliere : public Entite {
         std::vector<Entite> contenu;
 
     public:
-        Fourmiliere(int x, int y, int pm,int nm, int n){
-            this->x = x;
-            this->y = y;
+        Fourmiliere(int x, int y, int pm,int nm, int n):Entite(x,y,"fourmiliere"){
+
             populationMax = pm;
             nourritureMax = nm;
             nourriture = n;

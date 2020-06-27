@@ -48,7 +48,7 @@ class Moteur {
                 Fourmi fourmitmp = Fourmi(xtmp,ytmp,FOURMI,OUVRIERE);
                 
                 fourmis.push_back(fourmitmp);
-                terrain[xtmp][ytmp].addEntite(&fourmitmp);
+                terrain[xtmp][ytmp].addEntite(&fourmis[i]);
             }
             
             for (size_t i = 0; i < vn; i++)
@@ -102,7 +102,7 @@ class Moteur {
 
         std::vector<Cellule> updateAffichage();
 
-        std::vector<Fourmi> getFourmis() const;
+        std::vector<Fourmi> getFourmis();
 
         std::vector<Obstacle> getObstacles() const;
 
