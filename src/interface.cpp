@@ -155,7 +155,11 @@ int main (int argc, char *argv[]) {
   int partie = 15;
 for (size_t i = 0; i < partie; i++)
   {
+    if(i%2==0) {
+      cout << "[info] Partie en cours.\n" << std::endl;
+    } else {
     cout << "[info] Partie en cours...\n" << std::endl;
+    }
     updateGame(row,col,i,moteur.getMatrice());
     moteur.next();
     
