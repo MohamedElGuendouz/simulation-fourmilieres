@@ -133,7 +133,7 @@ void updateMatrice(std::vector< std::vector<Cellule> >& terrain) {
 
 void updateGame(int row, int col, int i, std::vector< std::vector<Cellule> >& t) {
   
-  updateMatrice(t);
+  //updateMatrice(t);
   afficherEnvironnement(row,col);
   cout << "Partie : "<< i << std::endl;
 }
@@ -148,20 +148,31 @@ int main (int argc, char *argv[]) {
   int nourritures=*argv[2];
   int obstacles=*argv[3];
 
-  Moteur moteur = Moteur(10,5,2,15,15);
+  Moteur moteur = Moteur(fourmis,nourritures,obstacles,15,15);
 
-  lauchGame(row,col,2,5,0.95);
+  //lauchGame(row,col,2,5,0.95);
   int partie = 15;
   for (size_t i = 0; i < partie; i++)
   {
     //updateGame(row,col,i,moteur.getMatrice());
     moteur.next();
+    for (size_t i = 0; i < moteur.getMatrice().size(); i++)
+    {
+      for (size_t j = 0; j < moteur.getMatrice()[i].size(); j++)
+      {
+        for (size_t k = 0; k < moteur.getMatrice()[i][j].getEntite().size(); k++)
+        {
+          cout << moteur.getMatrice()[i][j].getEntite()[k]->getType()<<"\n";
+        }
+      }
+    }
+    cout << "Partie : "<< partie << std::endl;
     
     usleep(999999);
 
     // Pour garder la dernière mise à jour
     if(i<partie) {
-      system("clear");
+      //system("clear");
     }
   }
 }

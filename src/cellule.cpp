@@ -11,8 +11,8 @@ void Cellule::setType(T_TYPE_CELLULE type) {
     this->type = type;
 }
 
-T_TYPE_CELLULE Cellule::getType() const {
-    return type;
+T_TYPE_CELLULE Cellule::getType() {
+    return this->type;
 }
 
 bool Cellule::containsFourmi(){

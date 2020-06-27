@@ -38,7 +38,7 @@ class Cellule {
 
     void addPheromone(int qte) {pheromones += qte;}
 
-    T_TYPE_CELLULE getType() const;
+    T_TYPE_CELLULE getType() ;
 
     void setType(T_TYPE_CELLULE type);
     int getPheromone(){return pheromones;}
