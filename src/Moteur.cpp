@@ -1,5 +1,10 @@
 #include "Moteur.h"
 
+int Moteur::getNombreEntite(){
+    int result =  fourmis.size() + nourritures.size() + obstacles.size();
+    return result;
+}
+
 /** Cette méthode est utilisé pour passer a la prochaine partie **/
 void Moteur::next()
 {

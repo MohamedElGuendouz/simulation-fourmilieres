@@ -75,6 +75,8 @@ class Moteur {
             this->partieEnCours = true;
         }
 
+        int getNombreEntite();
+
         /** Cette méthode est utilisé pour passer a la prochaine partie **/
         void next();
 
