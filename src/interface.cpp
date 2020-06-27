@@ -93,59 +93,43 @@ int getRandInt(int a, int b){
 
 void lauchGame ( int row, int col, int obs, int nour, double absphero) {
     initEnvironnement(row, col);
-    /*  cout << "-----------------------------------------\n";
-      cout << "Ajout des composants dans l'environnement\n";
-      cout << "-----------------------------------------\n";
-
-    for (int o=0; o<obs; o++) {
-      addObject("🕳 ", getRandInt(0,row),getRandInt(0,col));
-    }
-
-    for (int n=0; n<nour; n++) {
-      addObject(" 🥗 ", getRandInt(0,row),getRandInt(0,col));
-    }
-
-    for (int f=0; f<10; f++) {
-      addObject(" 🐜 ", getRandInt(0,row),getRandInt(0,col));
-    }
-
-    addObject("🏔 ", getRandInt(0,row),getRandInt(0,col));
-
-    addObject(" 👑 ", getRandInt(0,row),getRandInt(0,col));
-    */
     afficherEnvironnement(row, col);
 }
 /** Mettre à jour la matrice en fonction du terrain du moteur*/
 void updateMatrice(std::vector< std::vector<Cellule> >& terrain) {
+  //cout << "x [i] = "<<terrain.size();
+  cout << "";
   for (size_t i = 0; i < terrain.size(); i++)
   {
+    //cout << "x [j] = "<<terrain[i].size();
+    cout << "";
     for (size_t j = 0; j < terrain[i].size(); j++)
     {
+      cout << "";
       std::vector<Entite*> entites  = terrain[i][j].getEntite();
       for (size_t e = 0; e < entites.size(); e++)
       {
-        std::cout << typeid(entites[e]).name();
-        /*if (entites[e]->getType() == "obstacle") {
-          addObject("🕳 ", getRandInt(i,j),getRandInt(i,j));
+        cout << "";
+        if (entites[e]->getType() == "obstacle") {
+          addObject("🕳 ", i,j);
         }
-
         if (entites[e]->getType() == "nourriture") {
-          addObject(" 🥗 ", getRandInt(i,j),getRandInt(i,j));
-        }*/
-
-        if (entites[e]->getType() == "fourmi") {
-          addObject(" 🐜 ", getRandInt(i,j),getRandInt(i,j));
-        }
-
-        /*if (entites[e]->getType() == "fourmiliere") {
-          addObject("🏔 ", getRandInt(i,j),getRandInt(i,j));
+          addObject(" 🥗 ", i,j);
         }
         if (entites[e]->getType() == "fourmi") {
+          addObject(" 🐜 ", i,j);
+        }
+        if (entites[e]->getType() == "fourmiliere") {
+          addObject("🏔 ", i,j);
+        }
+        /*if (entites[e]->getType() == "fourmi") {
           Fourmi tmpReine = dynamic_cast<Fourmi&>(*(entites[e]));
           if(tmpReine.getStatus() == REINE) {
-            addObject(" 👑 ", getRandInt(i,j),getRandInt(i,j));
+            addObject(" 👑 ", i,j);
           }
         }*/
+        afficherEnvironnement(5,10);
+        system("clear");
       }
     }
   }
@@ -155,7 +139,7 @@ void updateGame(int row, int col, int i, std::vector< std::vector<Cellule> >& t)
   
   updateMatrice(t);
   afficherEnvironnement(row,col);
-  std::cout << "Partie : "<< i << std::endl;
+  cout << "Partie : "<< i << std::endl;
 }
 
 

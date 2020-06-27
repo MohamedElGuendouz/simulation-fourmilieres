@@ -32,7 +32,6 @@ class Moteur {
             for (size_t i = 0; i < 5; i++)
             {
                 std::vector<Cellule> vectorTmp;
-
                 for (size_t j = 0; j < 10; j++)
                 {
                     Cellule celluletmp = Cellule(i,j,0,0,LIBRE);
