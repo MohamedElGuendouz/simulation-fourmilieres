@@ -35,7 +35,7 @@ class Moteur {
             terrain.resize(hauteur);
             for (size_t i = 0; i < hauteur; i++)
             {
-                terrain.resize(largeur);
+                terrain[i].resize(largeur);
                 for (size_t j = 0; j < largeur; j++)
                 {
                     terrain[i][j] = Cellule(i,j,0,0,LIBRE);

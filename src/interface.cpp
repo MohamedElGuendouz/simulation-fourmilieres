@@ -141,20 +141,24 @@ void updateGame(int row, int col, int i, std::vector< std::vector<Cellule> >& t)
 #include <unistd.h>
 
 int main (int argc, char *argv[]) {
+
   int row = 5;
   int col = 10;
-  int fourmis=*argv[1];
-  int nourritures=*argv[2];
-  int obstacles=*argv[3];
+
+  char* p;
+  int fourmis=(int)(long)strtol(argv[1], &p, 10);
+  int nourritures=(int)(long)strtol(argv[2], &p, 10);
+  int obstacles=(int)(long)strtol(argv[3], &p, 10);
 
   Moteur moteur = Moteur(fourmis,nourritures,obstacles,15,15);
 
   lauchGame(row,col);
   int partie = 15;
-  for (size_t i = 0; i < partie; i++)
+for (size_t i = 0; i < partie; i++)
   {
     updateGame(row,col,i,moteur.getMatrice());
-    //moteur.next();
+    moteur.next();
+    
     for (size_t i = 0; i < moteur.getMatrice().size(); i++)
     {
       for (size_t j = 0; j < moteur.getMatrice()[i].size(); j++)
@@ -162,10 +166,13 @@ int main (int argc, char *argv[]) {
         for (size_t k = 0; k < moteur.getMatrice()[i][j].getEntite().size(); k++)
         {
           //cout << moteur.getMatrice()[i][j].getEntite()[k]->getType()<<"\n";
-          cout << "[" << i <<"]"<<"[" << j <<"]"<<"[" << k <<"]\n";
+          cout << "[Entite] : [" << i <<"]"<<"[" << j <<"]"<<" indice [" << k <<"]\n";
         }
       }
     }
+
+    cout << "nombre d' entite : "<< moteur.getNombreEntite()<<"\n";
+
     cout << "Partie : "<< i << std::endl;
     
     usleep(999999);
