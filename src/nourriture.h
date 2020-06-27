@@ -6,7 +6,7 @@ class Nourriture: public Entite {
 		int valeur;
 	
 	public: 
-		Nourriture(int xv, int yv, int v):Entite(xv,yv,"nourriture"){this->valeur=v;};
+		Nourriture(int xv, int yv, int v,int type):Entite(xv,yv,type){this->valeur=v;};
 		int getValeur(){return this->valeur;};
 		void setValeur(int v){this->valeur = v;};
 };

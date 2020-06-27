@@ -47,8 +47,8 @@ class Moteur {
             {
                 int xtmp = getRandInt(0,4);
                 int ytmp = getRandInt(0,9);
-                
-                fourmis.push_back(Fourmi(xtmp,ytmp,FOURMI,OUVRIERE));
+                int type = 0;
+                fourmis.push_back(Fourmi(xtmp,ytmp,FOURMI,OUVRIERE,type));
                 terrain[xtmp][ytmp].addEntite(&fourmis[i]);
             }
             
@@ -57,8 +57,8 @@ class Moteur {
             {
                 int xtmp = getRandInt(0,4);
                 int ytmp = getRandInt(0,9);
-
-                nourritures.push_back(Nourriture(xtmp,ytmp,getRandInt(1,10)));
+                int type = 1;
+                nourritures.push_back(Nourriture(xtmp,ytmp,getRandInt(1,10),type));
                 terrain[xtmp][ytmp].addEntite(&nourritures[i]);
             }
             
@@ -67,8 +67,8 @@ class Moteur {
             {
                 int xtmp = getRandInt(0,4);
                 int ytmp = getRandInt(0,9);
-
-                obstacles.push_back(Obstacle(xtmp,ytmp));
+                int type = 2;
+                obstacles.push_back(Obstacle(xtmp,ytmp,type));
                 terrain[xtmp][ytmp].addEntite(&obstacles[i]);
             }
 
