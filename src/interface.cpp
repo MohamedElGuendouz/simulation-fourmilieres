@@ -91,7 +91,7 @@ int getRandInt(int a, int b){
   return rand()%(b-a)+a; 
 }
 
-void lauchGame ( int row, int col, int obs, int nour, double absphero) {
+void lauchGame ( int row, int col) {
     initEnvironnement(row, col);
     afficherEnvironnement(row, col);
 }
@@ -135,7 +135,6 @@ void updateGame(int row, int col, int i, std::vector< std::vector<Cellule> >& t)
   
   //updateMatrice(t);
   afficherEnvironnement(row,col);
-  cout << "Partie : "<< i << std::endl;
 }
 
 
@@ -150,29 +149,30 @@ int main (int argc, char *argv[]) {
 
   Moteur moteur = Moteur(fourmis,nourritures,obstacles,15,15);
 
-  //lauchGame(row,col,2,5,0.95);
+  lauchGame(row,col);
   int partie = 15;
   for (size_t i = 0; i < partie; i++)
   {
-    //updateGame(row,col,i,moteur.getMatrice());
-    moteur.next();
+    updateGame(row,col,i,moteur.getMatrice());
+    //moteur.next();
     for (size_t i = 0; i < moteur.getMatrice().size(); i++)
     {
       for (size_t j = 0; j < moteur.getMatrice()[i].size(); j++)
       {
         for (size_t k = 0; k < moteur.getMatrice()[i][j].getEntite().size(); k++)
         {
-          cout << moteur.getMatrice()[i][j].getEntite()[k]->getType()<<"\n";
+          //cout << moteur.getMatrice()[i][j].getEntite()[k]->getType()<<"\n";
+          cout << "[" << i <<"]"<<"[" << j <<"]"<<"[" << k <<"]\n";
         }
       }
     }
-    cout << "Partie : "<< partie << std::endl;
+    cout << "Partie : "<< i << std::endl;
     
     usleep(999999);
 
     // Pour garder la dernière mise à jour
     if(i<partie) {
-      //system("clear");
+      system("clear");
     }
   }
 }
