@@ -97,6 +97,7 @@ void lauchGame ( int row, int col) {
 /** Mettre à jour la matrice en fonction du terrain du moteur*/
 void updateMatrice(Moteur* mot) {
 
+  initEnvironnement(mot->getHauteur(), mot->getLargeur());
   //cout << "x [i] = "<<terrain.size();
   for (size_t i = 0; i < mot->getHauteur(); i++)
   {
@@ -184,8 +185,9 @@ int main (int argc, char *argv[]) {
       } else {
         cout << "[info] Partie en cours...\n" << std::endl;
       }
-      updateGame(&moteur);
       moteur.next();
+      updateGame(&moteur);
+
 
       if(i==0){
         cout << "[info] Debut de la partie\n" << std::endl;

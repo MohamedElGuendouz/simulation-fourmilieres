@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include <stdlib.h>
 #include "Moteur.h"
 #include <typeinfo>
@@ -22,7 +22,6 @@ private:
 public:
   Interface(int fourmis, int reines, int nourritures, int obstacles, int fourmiliere, int popMax, int nourMax, int hauteur, int largeur)
   {
-
     this->nourritures = hauteur;
     this->obstacles = obstacles;
     this->fourmiliere = fourmiliere;
@@ -50,7 +49,7 @@ public:
           }
         }*/
 
-    for (size_t i = 0; i < partie; i++)
+    /*for (size_t i = 0; i < partie; i++)
     {
       if (i % 2 == 0)
       {
@@ -205,7 +204,7 @@ public:
     initEnvironnement(row, col);
   }
   /** Mettre à jour la matrice en fonction du terrain du moteur*/
-  void updateMatrice(Moteur *mot)
+  /*void updateMatrice(Moteur *mot)
   {
 
     //cout << "x [i] = "<<terrain.size();
@@ -278,4 +277,4 @@ public:
       Interface(fourmis, reines, nourritures, obstacles, fourmiliere, 15, 15, row, col);
     }
   }
-}
+}*/
