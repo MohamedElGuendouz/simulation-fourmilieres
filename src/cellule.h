@@ -10,13 +10,12 @@ class Cellule {
     int x;
     int y;
     int pheromones;
-    int nourriture;
     T_TYPE_CELLULE type;
     std::vector<Entite*> contenu;
 
   public:
     Cellule();
-    Cellule(int coordX, int coordY,int p,int n, T_TYPE_CELLULE t):x(coordX),y(coordY),pheromones(p),nourriture(n),type(t){};
+    Cellule(int coordX, int coordY,int p,int n, T_TYPE_CELLULE t):x(coordX),y(coordY),pheromones(p),type(t){};
 
     void addEntite(Entite* ent){
       int i =0;
@@ -56,7 +55,6 @@ class Cellule {
 
     void downPheromone() {pheromones--;}
 
-    bool contientNourriture() {if(nourriture>0) return true; return false;}
     bool contientPasObstacle() {if(type == OBSTACLE)return false;return true;}
 
     bool containsFourmi();
