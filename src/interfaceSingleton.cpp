@@ -95,69 +95,30 @@ public:
     {
       for (size_t j = 0; j < mot->getLargeur(); j++)
       {
-        bool contentEntite = false;
-        bool afficherEntite = false;
-
+        std::cout << "[" << i << "]"<< "[" << j << "] : ";
         if (mot->containsObstacle(i, j))
         {
-          contentEntite = true;
-          if (!afficherEntite)
-          {
-            std::cout << "[" << i << "]"
-                      << "[" << j << "] : ";
-            afficherEntite = true;
-          }
           std::cout << " 🕳 ";
         }
         if (mot->containsFoumiliere(i, j))
         {
-          contentEntite = true;
-          if (!afficherEntite)
-          {
-            std::cout << "[" << i << "]"
-                      << "[" << j << "] : ";
-            afficherEntite = true;
-          }
           std::cout << " 🏔 ";
         }
         if (mot->containsReine(i, j))
         {
-          contentEntite = true;
-          if (!afficherEntite)
-          {
-            std::cout << "[" << i << "]"
-                      << "[" << j << "] : ";
-            afficherEntite = true;
-          }
           std::cout << " 👑 ";
         }
         else if (mot->containsFourmi(i, j))
         {
-          contentEntite = true;
-          if (!afficherEntite)
-          {
-            std::cout << "[" << i << "]"
-                      << "[" << j << "] : ";
-            afficherEntite = true;
-          }
           std::cout << " 🐜 ";
         }
         if (mot->containsNourriture(i, j))
         {
-          contentEntite = true;
-          if (!afficherEntite)
-          {
-            std::cout << "[" << i << "]"
-                      << "[" << j << "] : ";
-            afficherEntite = true;
-          }
           std::cout << " 🥗 ";
         }
-        if (contentEntite)
-        {
-          std::cout << "\n";
-          contentEntite = false;
-        }
+        std::cout << "  Nourritures : "<< mot->getSommeNourriture(i,j);
+        std::cout << "  Pheromones : "<< mot->getPheromoneCellule(i,j);
+        std::cout << "\n";
       }
     }
   }

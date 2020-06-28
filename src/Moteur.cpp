@@ -294,7 +294,7 @@ int Moteur::getSommeNourriture(int x, int y){
     int somme = 0;
     int k = 0;
     while(k<nourritures.size()){
-        if(fourmilieres[k].getAbs() == x and fourmilieres[k].getOrd() == y) somme += nourritures[k].getValeur();
+        if(nourritures[k].getAbs() == x and nourritures[k].getOrd() == y) somme += nourritures[k].getValeur();
         k++;
     }
     return somme;
