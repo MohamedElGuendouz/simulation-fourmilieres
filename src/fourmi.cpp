@@ -12,14 +12,3 @@ Fourmi& Fourmi::operator=(Fourmi const& u)
 
   return (*this) ;
 }
-
-void Fourmi::setCoord(int x, int y){
-  this->x = x;
-  this->y = y;
-}
-
-void Fourmi::setCoord(double x, double y){
-  
-  this->x = int(x);
-  this->y = int(y);
-}

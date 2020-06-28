@@ -27,9 +27,6 @@ class Fourmi : public Entite {
         void setNourriture(int i){nourriture=i;};
         void setNourritureMax(int i){nourritureMax=i;};
 
-        void setCoord(int x, int y);
-        void setCoord(double x, double y);
-
         void downLifeValue(){lifeValue--;};
         int getLifeValue(){return lifeValue;};
 
