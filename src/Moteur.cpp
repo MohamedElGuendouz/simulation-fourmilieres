@@ -1,4 +1,4 @@
-#include "Moteur.h"
+#include "moteur.h"
 
 int Moteur::getNombreEntite(){
     int result =  fourmis.size() + nourritures.size() + obstacles.size();
