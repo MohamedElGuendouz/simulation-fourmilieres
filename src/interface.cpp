@@ -259,27 +259,32 @@ int main(int argc, char *argv[])
     std::cout << "----------------------------------------" << endl;
     std::cout << " Menu      FOURMILIERE      PROJET LP73 " << endl;
     std::cout << "----------------------------------------" << endl;
-    std::cout << "1er parametre : nombre de fourmis" << endl;
-    std::cout << "2eme parametre : nombre de reine" << endl;
-    std::cout << "3eme parametre : nombre de nourriture" << endl;
-    std::cout << "4eme parametre : nombre de obstacle" << endl;
-    std::cout << "5eme parametre : nombre de fourmiliere" << endl;
+    std::cout << "1er parametre : nombre de partie" << endl;
+    std::cout << "2eme parametre : nombre de fourmis" << endl;
+    std::cout << "3eme parametre : nombre de reine" << endl;
+    std::cout << "4eme parametre : nombre de nourriture" << endl;
+    std::cout << "5eme parametre : nombre de populationMax" << endl;
+    std::cout << "6eme parametre : nombre de nourritureMax" << endl;
+    std::cout << "7eme parametre : nombre de obstacle" << endl;
+    std::cout << "8eme parametre : nombre de fourmiliere" << endl;
     std::cout << "----------------------------------------" << endl;
   }
   else
   {
-    int fourmis = (int)(long)strtol(argv[1], &p, 10);
-    int reines = (int)(long)strtol(argv[2], &p, 10);
-    int nourritures = (int)(long)strtol(argv[3], &p, 10);
-    int obstacles = (int)(long)strtol(argv[4], &p, 10);
-    int fourmiliere = (int)(long)strtol(argv[5], &p, 10);
+    int partie = (int)(long)strtol(argv[1], &p, 10);
+    int fourmis = (int)(long)strtol(argv[2], &p, 10);
+    int reines = (int)(long)strtol(argv[3], &p, 10);
+    int nourritures = (int)(long)strtol(argv[4], &p, 10);
+    int populationMax = (int)(long)strtol(argv[5], &p, 10);
+    int nourrituresMax = (int)(long)strtol(argv[6], &p, 10);
+    int obstacles = (int)(long)strtol(argv[7], &p, 10);
+    int fourmiliere = (int)(long)strtol(argv[8], &p, 10);
 
     std::cout << fourmis << " " << reines << " " << nourritures << " " << obstacles << " " << fourmiliere << std::endl;
 
-    Moteur moteur = Moteur(fourmis, reines, nourritures, obstacles, fourmiliere, 15, 15, row, col);
+    Moteur moteur = Moteur(fourmis, reines, nourritures, obstacles, fourmiliere, populationMax, nourrituresMax, row, col);
 
     lauchGame(row, col);
-    int partie = 15;
 
     /*for(int n=0;n<5;n++){
       for(int m=0;m<10;m++){

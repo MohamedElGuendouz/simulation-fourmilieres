@@ -1,4 +1,4 @@
-/*#include <iostream>
+#include <iostream>
 #include <stdlib.h>
 #include "Moteur.h"
 #include <typeinfo>
@@ -37,19 +37,21 @@ public:
     lauchGame(hauteur, largeur);
     int partie = 15;
 
-    /*for(int n=0;n<5;n++){
-          for(int m=0;m<10;m++){
-            cout<<n<<"  "<<m<< "   ";
-            cout<<moteur.containsFourmi(n,m);
-            cout<<moteur.containsObstacle(n,m);
-            cout<<moteur.containsNourriture(n,m);
-            cout<<moteur.containsFoumiliere(n,m);
-            cout<<moteur.containsReine(n,m);
-            cout<<endl;
-          }
-        }*/
+    for (int n = 0; n < 5; n++)
+    {
+      for (int m = 0; m < 10; m++)
+      {
+        std::cout << n << "  " << m << "   ";
+        std::cout << moteur.containsFourmi(n, m);
+        std::cout << moteur.containsObstacle(n, m);
+        std::cout << moteur.containsNourriture(n, m);
+        std::cout << moteur.containsFoumiliere(n, m);
+        std::cout << moteur.containsReine(n, m);
+        std::cout << std::endl;
+      }
+    }
 
-    /*for (size_t i = 0; i < partie; i++)
+    for (size_t i = 0; i < partie; i++)
     {
       if (i % 2 == 0)
       {
@@ -85,11 +87,86 @@ public:
       }
     }
   }
+  void afficherPositionEntite(Moteur *mot)
+  {
+
+    for (size_t i = 0; i < mot->getHauteur(); i++)
+    {
+      for (size_t j = 0; j < mot->getLargeur(); j++)
+      {
+        bool contentEntite = false;
+        bool afficherEntite = false;
+
+        if (mot->containsObstacle(i, j))
+        {
+          contentEntite = true;
+          if (!afficherEntite)
+          {
+            std::cout << "[" << i << "]"
+                      << "[" << j << "] : ";
+            afficherEntite = true;
+          }
+          std::cout << " 🕳 ";
+        }
+        if (mot->containsFoumiliere(i, j))
+        {
+          contentEntite = true;
+          if (!afficherEntite)
+          {
+            std::cout << "[" << i << "]"
+                      << "[" << j << "] : ";
+            afficherEntite = true;
+          }
+          std::cout << " 🏔 ";
+        }
+        if (mot->containsReine(i, j))
+        {
+          contentEntite = true;
+          if (!afficherEntite)
+          {
+            std::cout << "[" << i << "]"
+                      << "[" << j << "] : ";
+            afficherEntite = true;
+          }
+          std::cout << " 👑 ";
+        }
+        else if (mot->containsFourmi(i, j))
+        {
+          contentEntite = true;
+          if (!afficherEntite)
+          {
+            std::cout << "[" << i << "]"
+                      << "[" << j << "] : ";
+            afficherEntite = true;
+          }
+          std::cout << " 🐜 ";
+        }
+        if (mot->containsNourriture(i, j))
+        {
+          contentEntite = true;
+          if (!afficherEntite)
+          {
+            std::cout << "[" << i << "]"
+                      << "[" << j << "] : ";
+            afficherEntite = true;
+          }
+          std::cout << " 🥗 ";
+        }
+        if (contentEntite)
+        {
+          std::cout << "\n";
+          contentEntite = false;
+        }
+      }
+    }
+  }
+
   void addObject(std::string object, int i, int j)
   {
+
     int prioObject = 0;
 
-    std::cout << object;
+    //std::cout << object;
     if (object == "🕳 ")
     {
       prioObject = 5;
@@ -110,7 +187,7 @@ public:
     {
       prioObject = 1;
     }
-    std::cout << matrice[i][j];
+    //std::cout << matrice[i][j];
 
     int prioMaxCellule = 0;
     if (matrice[i][j] == " 🏔  ")
@@ -137,20 +214,18 @@ public:
     {
       prioMaxCellule = 0;
     }
-    std::cout << prioObject << " " << prioMaxCellule;
+    //std::cout << prioObject << " " << prioMaxCellule;
 
     if (prioObject > prioMaxCellule)
     {
       if (prioObject >= 4)
-      {
         matrice[i][j] = " " + object + " ";
-      }
       else
       {
         matrice[i][j] = object;
       }
     }
-    std::cout << "  ======> [" << i << "," << j << "] = " << matrice[i][j] << "\n";
+    //std::cout << "  ======> [" << i << "," << j << "] = " << matrice[i][j] << "\n";
   }
   std::string getObject(int i, int j)
   {
@@ -204,13 +279,14 @@ public:
     initEnvironnement(row, col);
   }
   /** Mettre à jour la matrice en fonction du terrain du moteur*/
-  /*void updateMatrice(Moteur *mot)
+  void updateMatrice(Moteur *mot)
   {
 
-    //cout << "x [i] = "<<terrain.size();
+    initEnvironnement(mot->getHauteur(), mot->getLargeur());
+    //std::cout << "x [i] = "<<terrain.size();
     for (size_t i = 0; i < mot->getHauteur(); i++)
     {
-      //cout << "x [j] = "<<terrain[i].size();
+      //std::cout << "x [j] = "<<terrain[i].size();
       for (size_t j = 0; j < mot->getLargeur(); j++)
       {
         std::cout << "";
@@ -243,38 +319,45 @@ public:
     updateMatrice(mot);
     afficherEnvironnement(mot->getHauteur(), mot->getLargeur());
   }
-  int main(int argc, char *argv[])
+};
+/*
+int main(int argc, char *argv[])
+{
+  srand(time(NULL));
+
+  int row = 5;
+  int col = 10;
+
+  char *p;
+
+  if (argc == 1)
   {
-    srand(time(NULL));
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << " Menu      FOURMILIERE      PROJET LP73 " << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "1er parametre : nombre de partie" << std::endl;
+    std::cout << "2eme parametre : nombre de fourmis" << std::endl;
+    std::cout << "3eme parametre : nombre de reine" << std::endl;
+    std::cout << "4eme parametre : nombre de nourriture" << std::endl;
+    std::cout << "5eme parametre : nombre de populationMax" << std::endl;
+    std::cout << "6eme parametre : nombre de nourritureMax" << std::endl;
+    std::cout << "7eme parametre : nombre de obstacle" << std::endl;
+    std::cout << "8eme parametre : nombre de fourmiliere" << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+  }
+  else
+  {
+    int partie = (int)(long)strtol(argv[1], &p, 10);
+    int fourmis = (int)(long)strtol(argv[2], &p, 10);
+    int reines = (int)(long)strtol(argv[3], &p, 10);
+    int nourritures = (int)(long)strtol(argv[4], &p, 10);
+    int populationMax = (int)(long)strtol(argv[5], &p, 10);
+    int nourrituresMax = (int)(long)strtol(argv[6], &p, 10);
+    int obstacles = (int)(long)strtol(argv[7], &p, 10);
+    int fourmiliere = (int)(long)strtol(argv[8], &p, 10);
 
-    int row = 5;
-    int col = 10;
+    std::cout << fourmis << " " << reines << " " << nourritures << " " << obstacles << " " << fourmiliere << std::endl;
 
-    char *p;
-
-    if (argc == 1)
-    {
-      std::cout << "----------------------------------------" << std::endl;
-      std::cout << " Menu      FOURMILIERE      PROJET LP73 " << std::endl;
-      std::cout << "----------------------------------------" << std::endl;
-      std::cout << "1er parametre : nombre de fourmis" << std::endl;
-      std::cout << "2eme parametre : nombre de reine" << std::endl;
-      std::cout << "3eme parametre : nombre de nourriture" << std::endl;
-      std::cout << "4eme parametre : nombre de obstacle" << std::endl;
-      std::cout << "5eme parametre : nombre de fourmiliere" << std::endl;
-      std::cout << "----------------------------------------" << std::endl;
-    }
-    else
-    {
-      int fourmis = (int)(long)strtol(argv[1], &p, 10);
-      int reines = (int)(long)strtol(argv[2], &p, 10);
-      int nourritures = (int)(long)strtol(argv[3], &p, 10);
-      int obstacles = (int)(long)strtol(argv[4], &p, 10);
-      int fourmiliere = (int)(long)strtol(argv[5], &p, 10);
-
-      std::cout << fourmis << " " << reines << " " << nourritures << " " << obstacles << " " << fourmiliere << std::endl;
-
-      Interface(fourmis, reines, nourritures, obstacles, fourmiliere, 15, 15, row, col);
-    }
+    Interface(fourmis, reines, nourritures, obstacles, fourmiliere, 15, 15, row, col);
   }
 }*/
