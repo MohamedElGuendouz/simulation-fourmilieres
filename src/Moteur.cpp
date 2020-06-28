@@ -137,7 +137,7 @@ void Moteur::deplacerFourmi(int i){
                 if (containsNourriture(cellules[j]->getAbs(),cellules[j]->getOrd()))
                 {
                     findCellule = true;
-                    deposePheromone(1,cellules[j]);
+                    deposePheromone(40,cellules[j]);
                     fourmis[i].setAbs(cellules[j]->getAbs());
                     fourmis[i].setOrd(cellules[j]->getOrd());
                     cellules[j]->addEntite(&fourmis[i]);
@@ -145,44 +145,56 @@ void Moteur::deplacerFourmi(int i){
                 }
             }
         }
-        if (!findCellule)
+        int j = rand() %cellules.size();
+        int nbB = 0;
+        while (!findCellule)
         {
-            for (unsigned int j = 0; j < cellules.size(); j++)
+            if (!containsObstacle(cellules[j]->getAbs(),cellules[j]->getOrd()))
             {
-                /** si une cellule contient de la nourriture, elle se deplace dessus */
-                if (!findCellule)
-                {
-                    if (!containsObstacle(cellules[j]->getAbs(),cellules[j]->getOrd()))
-                    {
-                        findCellule = true;
-                        deposePheromone(1,cellules[j]);
-                        fourmis[i].setAbs(cellules[j]->getAbs());
-                        fourmis[i].setOrd(cellules[j]->getOrd());
-                        cellules[j]->addEntite(&fourmis[i]);
-                        removeReferenceCellule(cellules[j], &fourmis[i]);
-                    }
-                }
+                findCellule = true;
+                deposePheromone(20,cellules[j]);
+                fourmis[i].setAbs(cellules[j]->getAbs());
+                fourmis[i].setOrd(cellules[j]->getOrd());
+                cellules[j]->addEntite(&fourmis[i]);
+                removeReferenceCellule(cellules[j], &fourmis[i]);
+            } else if(nbB > cellules.size())findCellule = true;
+            else {
+                if(j == cellules.size()-1) j = 0;
+                else j++;
             }
+            nbB++;
         }
     }
     if (fourmis[i].modeExploration() == RAVITAILLEMENT)
     {
         Cellule* celluleMaxPheromone = cellules[0];
-        for (unsigned int j = 0; j < cellules.size(); j++)
+        int total = 0;
+        for (unsigned int j = 0; j < cellules.size(); j++) total+= cellules[j]->getPheromone();
+
+        int tirage = rand()%total;
+        int somme = 0;
+        unsigned int j = 0;
+        int indice = -1;
+        bool trouve = false;
+        while(j < cellules.size() and !trouve)
         {
-            if (cellules[j]->contientPasObstacle())
-            {
-                if (cellules[j]->getPheromone() > celluleMaxPheromone->getPheromone())
+            somme += cellules[j]->getPheromone();
+            if(tirage <= somme) {
+                if (cellules[j]->contientPasObstacle())
                 {
-                    celluleMaxPheromone = cellules[j];
+                    indice = j;
                 }
+                trouve = true;
             }
+            j++;
         }
-        deposePheromone(1,celluleMaxPheromone);
-        fourmis[i].setAbs(celluleMaxPheromone->getAbs());
-        fourmis[i].setOrd(celluleMaxPheromone->getOrd());
-        celluleMaxPheromone->addEntite(&fourmis[i]);
-        removeReferenceCellule(celluleMaxPheromone, &fourmis[i]);
+        if (indice >=0){
+            deposePheromone(5,cellules[indice]);
+            fourmis[i].setAbs(cellules[indice]->getAbs());
+            fourmis[i].setOrd(cellules[indice]->getOrd());
+            cellules[indice]->addEntite(&fourmis[i]);
+            removeReferenceCellule(cellules[indice], &fourmis[i]);
+        }
     }
 }
 
