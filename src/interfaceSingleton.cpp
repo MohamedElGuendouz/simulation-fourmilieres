@@ -364,6 +364,6 @@ int main(int argc, char *argv[])
 
     std::cout << fourmis << " " << reines << " " << nourritures << " " << obstacles << " " << fourmiliere << std::endl;
 
-    Interface::instance(fourmis, reines, nourritures, obstacles, fourmiliere, 15, 15, row, col);
+    Interface::getInstance(fourmis, reines, nourritures, obstacles, fourmiliere, 15, 15, row, col);
   }
 }
