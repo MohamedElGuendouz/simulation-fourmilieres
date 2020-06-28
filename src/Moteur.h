@@ -136,6 +136,9 @@ class Moteur {
 
         void deplacerFourmi(int i);
 
+        int getSommeNourriture(int x, int y);
+        int getPheromoneCellule(int x, int y);
+
         std::vector<Cellule> updateAffichage();
 
         std::vector<Fourmi> getFourmis();

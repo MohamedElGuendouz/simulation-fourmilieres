@@ -289,3 +289,17 @@ bool Moteur::containsFoumiliere(int i, int j) const{
     }
     return result;
 }
+
+int Moteur::getSommeNourriture(int x, int y){
+    int somme = 0;
+    int k = 0;
+    while(k<nourritures.size()){
+        if(fourmilieres[k].getAbs() == x and fourmilieres[k].getOrd() == y) somme += nourritures[k].getValeur();
+        k++;
+    }
+    return somme;
+}
+
+int Moteur::getPheromoneCellule(int x, int y){
+    return terrain[x][y].getPheromone();
+}
