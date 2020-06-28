@@ -244,7 +244,7 @@ void updateGame(Moteur *mot)
 }
 
 #include <unistd.h>
-
+/**
 int main(int argc, char *argv[])
 {
 
@@ -298,7 +298,7 @@ int main(int argc, char *argv[])
       }
     }*/
 
-    for (size_t i = 0; i < partie; i++)
+    /*for (size_t i = 0; i < partie; i++)
     {
       std::cout << "-----------------------------------------\n";
       if (i % 2 == 0)
@@ -335,4 +335,4 @@ int main(int argc, char *argv[])
       }
     }
   }
-}
+}*/

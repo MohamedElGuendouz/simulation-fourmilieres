@@ -60,7 +60,7 @@ void Moteur::garbageEntite()
     }
 
     /** Supprimer les nourritures avec une valeur a 0 */
-    bool trouve = true;
+    trouve = true;
     int intNourriture=0;
     while(trouve){
         trouve = false;     

@@ -19,7 +19,6 @@ private:
   int hauteur;
   int largeur;
 
-public:
   Interface(int fourmis, int reines, int nourritures, int obstacles, int fourmiliere, int popMax, int nourMax, int hauteur, int largeur)
   {
     this->nourritures = hauteur;
@@ -87,6 +86,8 @@ public:
       }
     }
   }
+
+public:
   void afficherPositionEntite(Moteur *mot)
   {
 
@@ -313,14 +314,19 @@ public:
       }
     }
   }
-
   void updateGame(Moteur *mot)
   {
     updateMatrice(mot);
+    afficherPositionEntite(mot);
     afficherEnvironnement(mot->getHauteur(), mot->getLargeur());
   }
+  static Interface& getInstance(int fourmis, int reines, int nourritures, int obstacles, int fourmiliere, int popMax, int nourMax, int hauteur, int largeur)
+   {
+      static Interface instance(fourmis, reines, nourritures, obstacles, fourmiliere, popMax, nourMax, hauteur, largeur);
+      return instance;
+   }
 };
-/*
+
 int main(int argc, char *argv[])
 {
   srand(time(NULL));
@@ -358,6 +364,6 @@ int main(int argc, char *argv[])
 
     std::cout << fourmis << " " << reines << " " << nourritures << " " << obstacles << " " << fourmiliere << std::endl;
 
-    Interface(fourmis, reines, nourritures, obstacles, fourmiliere, 15, 15, row, col);
+    Interface::instance(fourmis, reines, nourritures, obstacles, fourmiliere, 15, 15, row, col);
   }
-}*/
+}
