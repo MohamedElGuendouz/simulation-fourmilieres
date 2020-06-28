@@ -52,6 +52,7 @@ private:
 
     for (size_t i = 0; i < partie; i++)
     {
+      std::cout << "-----------------------------------------\n";
       if (i % 2 == 0)
       {
         std::cout << "[info] Partie en cours.\n"
