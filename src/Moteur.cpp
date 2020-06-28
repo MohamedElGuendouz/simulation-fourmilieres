@@ -49,7 +49,7 @@ void Moteur::garbageEntite()
     int intFourmis=0;
     for (it = fourmis.begin(); it != fourmis.end(); it++,intFourmis++) {
         if(fourmis[intFourmis].getLifeValue() == 0) {
-            //fourmis.erase(it);
+            fourmis.erase(it);
         }
     }
 
@@ -58,7 +58,7 @@ void Moteur::garbageEntite()
     int intNourriture=0;
     for (ite = nourritures.begin(); ite != nourritures.end(); ite++,intNourriture++) {
         if(ite[intNourriture].getValeur() == 0) {
-            //nourritures.erase(ite);
+            nourritures.erase(ite);
         }
     }
     
@@ -261,6 +261,17 @@ bool Moteur::containsFourmi(int i, int j) const{
     return result;
 }
 
+bool Moteur::containsReine(int i, int j) const{
+    bool result = false;
+    int k = 0;
+    while(k<reines.size() and !result){
+        if(reines[k].getAbs() == i and reines[k].getOrd() == j) result = true;
+        k++;
+    }
+    return result;
+}
+
+
 bool Moteur::containsObstacle(int i, int j) const{
     bool result = false;
     int k = 0;
@@ -276,6 +287,16 @@ bool Moteur::containsNourriture(int i, int j) const{
     int k = 0;
     while(k<nourritures.size() and !result){
         if(nourritures[k].getAbs() == i and nourritures[k].getOrd() == j) result = true;
+        k++;
+    }
+    return result;
+}
+
+bool Moteur::containsFoumiliere(int i, int j) const{
+    bool result = false;
+    int k = 0;
+    while(k<fourmilieres.size() and !result){
+        if(fourmilieres[k].getAbs() == i and fourmilieres[k].getOrd() == j) result = true;
         k++;
     }
     return result;

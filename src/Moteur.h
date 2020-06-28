@@ -17,6 +17,8 @@ class Moteur {
         std::vector<Nourriture> nourritures;
         std::vector< std::vector<Cellule> > terrain;
         std::vector<Obstacle> obstacles;
+        std::vector<Fourmiliere> fourmilieres;
+        std::vector<Fourmi> reines;
 
         unsigned int populationMax;
         unsigned int nourritureMax;
@@ -30,7 +32,7 @@ class Moteur {
             return rand()%(b-a)+a; 
         }
         
-        Moteur(int vf, int vn ,int vo, int popMax, int nourMax, int hauteur, int largeur)
+        Moteur(int vf, int vr, int vn ,int vo, int vfm, int popMax, int nourMax, int hauteur, int largeur)
         {
             this->hauteur = hauteur;
             this->largeur = largeur;
@@ -53,6 +55,7 @@ class Moteur {
                 
                 fourmis.push_back(Fourmi(xtmp,ytmp,FOURMI,OUVRIERE));
                 terrain[xtmp][ytmp].addEntite(&fourmis[i]);
+                std::cout <<"ajout fourmi : "<< xtmp << ytmp;
             }
             
             nourritures.clear();
@@ -61,8 +64,9 @@ class Moteur {
                 int xtmp = getRandInt(0,hauteur-1);
                 int ytmp = getRandInt(0,largeur-1);
 
-                nourritures.push_back(Nourriture(xtmp,ytmp,getRandInt(1,10)));
+                nourritures.push_back(Nourriture(xtmp,ytmp,getRandInt(1,9)));
                 terrain[xtmp][ytmp].addEntite(&nourritures[i]);
+                std::cout <<"ajout nourriture : "<< xtmp << ytmp;
             }
             
             obstacles.clear();
@@ -73,6 +77,29 @@ class Moteur {
 
                 obstacles.push_back(Obstacle(xtmp,ytmp));
                 terrain[xtmp][ytmp].addEntite(&obstacles[i]);
+                std::cout <<"ajout obstacle : "<< xtmp << ytmp;
+            }
+
+            fourmilieres.clear();
+            for (size_t i = 0; i < vfm; i++)
+            {
+                int xtmp = getRandInt(0,hauteur-1);
+                int ytmp = getRandInt(0,largeur-1);
+
+                fourmilieres.push_back(Fourmiliere(xtmp,ytmp,10,10,0));
+                terrain[xtmp][ytmp].addEntite(&fourmilieres[i]);
+                std::cout <<"ajout fourmiliere : "<< xtmp << ytmp;
+            }
+
+            reines.clear();
+            for (size_t i = 0; i < vr; i++)
+            {
+                int xtmp = getRandInt(0,hauteur-1);
+                int ytmp = getRandInt(0,largeur-1);
+
+                reines.push_back(Fourmi(xtmp,ytmp,FOURMI,REINE));
+                terrain[xtmp][ytmp].addEntite(&reines[i]);
+                std::cout <<"ajout reine : "<< xtmp << ytmp;
             }
 
             populationMax = popMax;
@@ -120,8 +147,10 @@ class Moteur {
         std::vector< std::vector<Cellule> >& getMatrice() {return terrain;};
 
         bool containsFourmi(int i, int j) const;
+        bool containsReine(int i, int j) const;
         bool containsObstacle(int i, int j) const;
         bool containsNourriture(int i, int j) const;
+        bool containsFoumiliere(int i, int j) const;
 
         std::vector<Cellule> getCelluleAutour(unsigned int i,unsigned int j) const;
         std::vector<Cellule> getCelluleAutour(Cellule c) const;

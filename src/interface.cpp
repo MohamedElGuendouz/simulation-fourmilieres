@@ -23,14 +23,14 @@ void addObject(string object, int i, int j) {
   }else if(object == " 🥗 "){
     prioObject=1;
   }
-  //cout << matrice[i][j];
+  cout << matrice[i][j];
 
   int prioMaxCellule=0;
-  if(matrice[i][j] == " 🕳  "){
+  if(matrice[i][j] == " 🏔  "){
     prioMaxCellule=5;
-  } else if(matrice[i][j] == " 🏔  "){
+  } else if(matrice[i][j] == " 🕳  "){
     prioMaxCellule=4;
-  }else if(matrice[i][j] == " 👑 "){
+  } else if(matrice[i][j] == " 👑 "){
     prioMaxCellule=3;
   }else if(matrice[i][j] == " 🐜 "){
     prioMaxCellule=2;
@@ -39,7 +39,7 @@ void addObject(string object, int i, int j) {
   }else if(matrice[i][j] == " ❎ "){
     prioMaxCellule=0;
   }
-    //cout << prioObject <<" "<< prioMaxCellule;
+  cout << prioObject <<" "<< prioMaxCellule;
 
   if(prioObject>prioMaxCellule) {
     if (prioObject >= 4 )
@@ -48,7 +48,7 @@ void addObject(string object, int i, int j) {
         matrice[i][j] = object;
     }
   }
-  //cout <<"  ======> ["<<i<<","<<j<<"] = "<<matrice[i][j]<<"\n";
+  cout <<"  ======> ["<<i<<","<<j<<"] = "<<matrice[i][j]<<"\n";
 
 }
 string getObject(int i, int j) {
@@ -107,21 +107,18 @@ void updateMatrice(Moteur* mot) {
       if (mot->containsObstacle(i,j)) {
         addObject("🕳 ", i,j);
       }
-      if (mot->containsNourriture(i,j)) {
-        addObject(" 🥗 ", i,j);
+      if (mot->containsFoumiliere(i,j)) {
+        addObject("🏔 ", i,j);
+      }
+      if (mot->containsReine(i,j)) {
+        addObject(" 👑 ", i,j);
       }
       if (mot->containsFourmi(i,j)) {
         addObject(" 🐜 ", i,j);
       }
-      /* if (entites[e]->getType() == "fourmiliere") {
-        addObject("🏔 ", i,j);
-      } */
-      /*if (entites[e]->getType() == "fourmi") {
-        Fourmi tmpReine = dynamic_cast<Fourmi&>(*(entites[e]));
-        if(tmpReine.getStatus() == REINE) {
-          addObject(" 👑 ", i,j);
-        }
-      }*/
+      if (mot->containsNourriture(i,j)) {
+        addObject(" 🥗 ", i,j);
+      }
     }
   }
 }
@@ -142,61 +139,67 @@ int main (int argc, char *argv[]) {
   int col = 10;
 
   char* p;
-  int fourmis=(int)(long)strtol(argv[1], &p, 10);
-  int nourritures=(int)(long)strtol(argv[2], &p, 10);
-  int obstacles=(int)(long)strtol(argv[3], &p, 10);
 
-  Moteur moteur = Moteur(fourmis,nourritures,obstacles,15,15,row,col);
+  if(argc==1){
+    cout << "----------------------------------------"<<endl;
+    cout << " Menu      FOURMILIERE      PROJET LP73 "<<endl;
+    cout << "----------------------------------------"<<endl;
+    cout << "1er parametre : nombre de fourmis"<<endl;
+    cout << "2eme parametre : nombre de reine"<<endl;
+    cout << "3eme parametre : nombre de nourriture"<<endl;
+    cout << "4eme parametre : nombre de obstacle"<<endl;
+    cout << "5eme parametre : nombre de fourmiliere"<<endl;
+    cout << "----------------------------------------"<<endl;
 
-  lauchGame(row,col);
-  int partie = 3;
+  }else {
+    int fourmis=(int)(long)strtol(argv[1], &p, 10);
+    int reines=(int)(long)strtol(argv[2], &p, 10);
+    int nourritures=(int)(long)strtol(argv[3], &p, 10);
+    int obstacles=(int)(long)strtol(argv[4], &p, 10);
+    int fourmiliere=(int)(long)strtol(argv[5], &p, 10);
 
-/* for(int n=0;n<5;n++){
-  for(int m=0;m<10;m++){
-    cout<<n<<"  "<<m<< "   ";
-    cout<<moteur.containsFourmi(n,m);
-    cout<<moteur.containsObstacle(n,m);
-    cout<<moteur.containsNourriture(n,m);
-    cout<<endl;
-  }
-} */
-  
-for (size_t i = 0; i < partie; i++)
-  {
-    if(i%2==0) {
-      cout << "[info] Partie en cours.\n" << std::endl;
-    } else {
-      cout << "[info] Partie en cours...\n" << std::endl;
-    }
-    updateGame(&moteur);
-    moteur.next();
-    
-    /* for (size_t i = 0; i < moteur.getMatrice().size(); i++)
-    {
-      for (size_t j = 0; j < moteur.getMatrice()[i].size(); j++)
-      {
-        for (size_t k = 0; k < moteur.getMatrice()[i][j].getEntite().size(); k++)
-        {
-          //cout << moteur.getMatrice()[i][j].getEntite()[k]->getType()<<"\n";
-          //cout << "[Entite] : [" << i <<"]"<<"[" << j <<"]"<<" indice [" << k <<"]\n";
-        }
+    cout << fourmis << " " <<  reines << " " << nourritures << " " <<  obstacles << " " <<  fourmiliere << std::endl;
+
+    Moteur moteur = Moteur(fourmis,reines,nourritures,obstacles,fourmiliere,15,15,row,col);
+
+    lauchGame(row,col);
+    int partie = 15;
+
+    /*for(int n=0;n<5;n++){
+      for(int m=0;m<10;m++){
+        cout<<n<<"  "<<m<< "   ";
+        cout<<moteur.containsFourmi(n,m);
+        cout<<moteur.containsObstacle(n,m);
+        cout<<moteur.containsNourriture(n,m);
+        cout<<moteur.containsFoumiliere(n,m);
+        cout<<moteur.containsReine(n,m);
+        cout<<endl;
       }
-    } */
-
-    //cout << "nombre d' entite : "<< moteur.getNombreEntite()<<"\n";
-
-    if(i==0){
-      cout << "[info] Debut de la partie\n" << std::endl;
-    }
-    cout << "Partie : "<< i << std::endl;
+    }*/
     
-    usleep(999999);
+    for (size_t i = 0; i < partie; i++)
+    {
+      if(i%2==0) {
+        cout << "[info] Partie en cours.\n" << std::endl;
+      } else {
+        cout << "[info] Partie en cours...\n" << std::endl;
+      }
+      updateGame(&moteur);
+      moteur.next();
 
-    // Pour garder la dernière mise à jour
-    if(i<partie-1) {
-      system("clear");
-    }else {
-      cout << "[info] Fin de la partie\n" << std::endl;
+      if(i==0){
+        cout << "[info] Debut de la partie\n" << std::endl;
+      }
+      cout << "Partie : "<< i << std::endl;
+      
+      usleep(999999);
+
+      // Pour garder la dernière mise à jour
+      if(i<partie-1) {
+        system("clear");
+      }else {
+        cout << "[info] Fin de la partie\n" << std::endl;
+      }
     }
   }
 }
