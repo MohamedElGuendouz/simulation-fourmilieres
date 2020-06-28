@@ -161,7 +161,7 @@ int main (int argc, char *argv[]) {
 
     cout << fourmis << " " <<  reines << " " << nourritures << " " <<  obstacles << " " <<  fourmiliere << std::endl;
 
-    Moteur moteur = Moteur(fourmis,reines,nourritures,obstacles,fourmiliere,15,15,row,col);
+    Moteur moteur = Moteur(fourmis+1,reines+1,nourritures+1,obstacles+1,fourmiliere+1,15,15,row,col);
 
     lauchGame(row,col);
     int partie = 15;
@@ -185,8 +185,8 @@ int main (int argc, char *argv[]) {
       } else {
         cout << "[info] Partie en cours...\n" << std::endl;
       }
-      moteur.next();
       updateGame(&moteur);
+      moteur.next();
 
 
       if(i==0){
