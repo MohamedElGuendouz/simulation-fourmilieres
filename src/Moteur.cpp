@@ -44,22 +44,34 @@ void Moteur::updateValues()
 /** Cette méthode est utilisé pour supprimé de la matrice les entités mortes **/
 void Moteur::garbageEntite()
 {
-    std::vector<Fourmi>::iterator it;
     /** Supprimer les fourmis mortes */
+    bool trouve = true;
     int intFourmis=0;
-    for (it = fourmis.begin(); it != fourmis.end(); it++,intFourmis++) {
-        if(fourmis[intFourmis].getLifeValue() == 0) {
-            fourmis.erase(it);
+    while(trouve){
+        trouve = false;     
+        while (intFourmis<fourmis.size() and !trouve) {
+            if(fourmis[intFourmis].getLifeValue() == 0) {
+                trouve = true;
+            } else {
+                intFourmis++;
+            }        
         }
+        if(trouve) fourmis.erase(fourmis.begin()+intFourmis);
     }
 
-    std::vector<Nourriture>::iterator ite;
     /** Supprimer les nourritures avec une valeur a 0 */
+    bool trouve = true;
     int intNourriture=0;
-    for (ite = nourritures.begin(); ite != nourritures.end(); ite++,intNourriture++) {
-        if(ite[intNourriture].getValeur() == 0) {
-            nourritures.erase(ite);
+    while(trouve){
+        trouve = false;     
+        while (intNourriture<nourritures.size() and !trouve) {
+            if(nourritures[intNourriture].getValeur() == 0) {
+                trouve = true;
+            } else {
+                intNourriture++;
+            }        
         }
+        if(trouve) nourritures.erase(nourritures.begin()+intNourriture);
     }
     
     /** Diminution des pheromones */
