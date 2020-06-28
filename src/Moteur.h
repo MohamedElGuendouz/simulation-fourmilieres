@@ -126,15 +126,15 @@ class Moteur {
 
         void updateMatrice();
 
-        void reccupererLaNourriture(std::vector<Fourmi*> fourmis, std::vector<Nourriture*> nourritures);
+        void reccupererLaNourriture(int i,int x,int y);
 
         void deposePheromone(int i, Cellule* c);
 
-        void removeReferenceCellule(Cellule* c, Fourmi* f);
+        void removeReferenceCellule(Cellule* c, Entite* f);
 
         void updateValues();
 
-        void deplacerFourmi(Fourmi* f);
+        void deplacerFourmi(int i);
 
         std::vector<Cellule> updateAffichage();
 
@@ -152,7 +152,5 @@ class Moteur {
         bool containsNourriture(int i, int j) const;
         bool containsFoumiliere(int i, int j) const;
 
-        std::vector<Cellule> getCelluleAutour(unsigned int i,unsigned int j) const;
-        std::vector<Cellule> getCelluleAutour(Cellule c) const;
-
+        std::vector<Cellule*> getCelluleAutour(unsigned int i,unsigned int j);
 };

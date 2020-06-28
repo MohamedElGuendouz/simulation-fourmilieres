@@ -70,171 +70,135 @@ void Moteur::garbageEntite()
     }
 }
 
-void Moteur::reccupererLaNourriture(std::vector<Fourmi*> fourmis, std::vector<Nourriture*> nourritures)
+void Moteur::reccupererLaNourriture(int i, int x, int y)
 {
-
-    /** Pour chaque fourmis de la cellule */
-    for (unsigned int i=0; i< fourmis.size(); i++)
-    {
         /** on verifie si la fourmi a atteint sa capacite max pour porter de la nourriture */
-        if (fourmis[i]->getNourriture() == fourmis[i]->getNourritureMax())
-        {
-            // Elle laisse la nourriture dans la cellule
-            deplacerFourmi(fourmis[i]);
-        }
-        /** Sinon */
-        else
+        if (fourmis[i].getNourriture() != fourmis[i].getNourritureMax())
         {
             ///// LA FOURMI PREND DE LA NOURRITURE AVANT DE PARTIR SI ELLE PEUT //////
 
             /** on calcule la capacite restante de la fourmi */
-            int deltaMax = int(fourmis[i]->getNourritureMax() - fourmis[i]->getNourriture());
+            int deltaMax = int(fourmis[i].getNourritureMax() - fourmis[i].getNourriture());
 
             /** permet de connaitre la nourriture prises par la fourmi */
             int deltaAdd = 0;
 
             /** Pour chaque nourriture de la cellule */
-            for (unsigned int i=0; i < nourritures.size();i++)
+            for (unsigned int j=0; j < nourritures.size();j++)
             {
                 /** Tant qu'il reste de la nourriture dans cette objet que l on a pas depasser la capacite de la fourmi */
-                while (nourritures[i]->getValeur() > 0 and deltaMax > deltaAdd)
-                {
-                    /** Si la valeur de l'objet est egale a la valeur à ajoute, on l'ajoute la totalite */
-                    if (nourritures[i]->getValeur() == deltaMax)
-                    {
-                        /** On ajoute la valeur de l'objet Nourriture */
-                        deltaAdd = deltaAdd + nourritures[i]->getValeur();
-
-                        /** On met a jour la valeur de l'objet Nourriture a 0 */
-                        nourritures[i]->setValeur(0);
-                    }
-                    /** Sinon on ajoute un par un de la nourriture à la fourmi */
-                    else
-                    {
-                        /** La fourmi reccupere la nourriture */
-                        deltaAdd = deltaAdd + 1;
-
-                        /** On met a jour la valeur de l'objet Nourriture */
-                        nourritures[i]->setValeur(nourritures[i]->getValeur() - 1);
+                if(nourritures[j].getAbs() == x and nourritures[j].getOrd() == y and deltaMax > deltaAdd and nourritures[j].getValeur()>0){
+                    if (deltaMax - deltaAdd >= nourritures[j].getValeur()){
+                        deltaAdd += nourritures[j].getValeur();
+                        nourritures[j].setValeur(0);
+                    }else{
+                        nourritures[j].setValeur(nourritures[j].getValeur() + deltaAdd - deltaMax);
+                        deltaAdd = deltaMax;
                     }
                 }
             }
-            fourmis[i]->setNourriture(fourmis[i]->getNourriture()+deltaAdd);
+            fourmis[i].setNourriture(fourmis[i].getNourriture()+deltaAdd);
+            fourmis[i].setExplo(RAVITAILLEMENT);
         }
-    }
 }
 
 /** Cette méthode est utilisé pour deplacer les fourmis du terrain */
 void Moteur::deplacerLesFourmis()
 {
     /** on regarde toutes les cellules du terrain */
-    for (unsigned int i = 0; i < this->terrain.size(); i++)
-    {
-        for (unsigned int j = 0; j < this->terrain[i].size(); j++)
-        {
-            /** on regarde si la cellule contiens de la nourriture et une ou plusieurs fourmi(s) */
-            if (this->terrain[i][j].containsFourmi() and this->terrain[i][j].contientNourriture())
-            {
-                /** Les fourmis reccupere la nourriture */
-                reccupererLaNourriture(this->terrain[i][j].getFourmi(), this->terrain[i][j].getNourritures());
-
-                /** on deplace les fourmis */
-                std::vector<Fourmi*> frms = this->terrain[i][j].getFourmi();
-                for(int c =0 ; c < frms.size();c++) {
-                    deplacerFourmi(frms[c]);
-                }
-            }
-            /** Si la cellule contient une ou plusieurs fourmis mais pas de nourriture */
-            else if (this->terrain[i][j].containsFourmi())
-            {
-                std::vector<Fourmi*>::iterator it;
-                int itn=0;
-                /** pour chaque fourmi de la cellule*/
-                for (it = this->terrain[i][j].getFourmi().begin(); it != this->terrain[i][j].getFourmi().end(); it++,itn++) {
-                    /** on deplace la fourmi suivant son mode de deplacement */
-                    deplacerFourmi(this->terrain[i][j].getFourmi()[itn]);
-                }
-            }
-        }
-    }
-}
-
-void Moteur::deplacerFourmi(Fourmi* f)
-{
     for (unsigned int i = 0; i < this->fourmis.size(); i++)
     {
-        if (f == &this->fourmis[i])
+        int x = fourmis[i].getAbs();
+        int y = fourmis[i].getOrd();
+        /** on regarde si la cellule contiens de la nourriture et une ou plusieurs fourmi(s) */
+        if (containsNourriture(x,y))
         {
-            std::vector<Cellule> cellules = getCelluleAutour(f->getAbs(), f->getOrd());
-            if (f->modeExploration() == EXPLORATION)
-            {
-                bool findCellule = false;
-                for (unsigned int j = 0; j < cellules.size(); j++)
-                {
-                    /** si une cellule contient de la nourriture, elle se deplace dessus */
-                    if (!findCellule)
-                    {
-                        if (cellules[j].contientNourriture())
-                        {
-                            findCellule = true;
-                            deposePheromone(1,&cellules[j]);
-                            cellules[j].addEntite(f);
-                            removeReferenceCellule(&cellules[j], f);
-                        }
-                    }
-                }
-                if (!findCellule)
-                {
-                    for (unsigned int j = 0; j < cellules.size(); j++)
-                    {
-                        /** si une cellule contient de la nourriture, elle se deplace dessus */
-                        if (!findCellule)
-                        {
-                            if (cellules[j].contientPasObstacle())
-                            {
-                                findCellule = true;
-                                deposePheromone(1,&cellules[j]);
-                                cellules[j].addEntite(f);
-                                removeReferenceCellule(&cellules[j], f);
-                            }
-                        }
-                    }
-                }
-            }
-            if (f->modeExploration() == RAVITAILLEMENT)
-            {
-                Cellule* celluleMaxPheromone = &cellules[0];
-                for (unsigned int j = 0; j < cellules.size(); j++)
-                {
-                    if (cellules[j].contientPasObstacle())
-                    {
-                        if (cellules[j].getPheromone() > celluleMaxPheromone->getPheromone())
-                        {
-                            celluleMaxPheromone = &cellules[j];
-                        }
-                    }
-                }
-                deposePheromone(1,celluleMaxPheromone);
-                celluleMaxPheromone->addEntite(f);
-                removeReferenceCellule(celluleMaxPheromone, f);
-            }
+            /** Les fourmis reccupere la nourriture */
+            reccupererLaNourriture(i,x,y);
         }
+
+        deplacerFourmi(i);
+            
     }
 }
 
-std::vector<Cellule> Moteur::getCelluleAutour( unsigned int i,unsigned int j) const{
-    std::vector<Cellule> result;
+void Moteur::deplacerFourmi(int i){
+    int oldX = fourmis[i].getAbs();
+    int oldY = fourmis[i].getOrd();
+    std::vector<Cellule*> cellules = getCelluleAutour(oldX,oldY);
+    if (fourmis[i].modeExploration() == EXPLORATION)
+    {
+        bool findCellule = false;
+        for (unsigned int j = 0; j < cellules.size(); j++)
+        {
+            /** si une cellule contient de la nourriture, elle se deplace dessus */
+            if (!findCellule)
+            {
+                if (containsNourriture(cellules[j]->getAbs(),cellules[j]->getOrd()))
+                {
+                    findCellule = true;
+                    deposePheromone(1,cellules[j]);
+                    fourmis[i].setAbs(cellules[j]->getAbs());
+                    fourmis[i].setOrd(cellules[j]->getOrd());
+                    cellules[j]->addEntite(&fourmis[i]);
+                    removeReferenceCellule(cellules[j], &fourmis[i]);
+                }
+            }
+        }
+        if (!findCellule)
+        {
+            for (unsigned int j = 0; j < cellules.size(); j++)
+            {
+                /** si une cellule contient de la nourriture, elle se deplace dessus */
+                if (!findCellule)
+                {
+                    if (!containsObstacle(cellules[j]->getAbs(),cellules[j]->getOrd()))
+                    {
+                        findCellule = true;
+                        deposePheromone(1,cellules[j]);
+                        fourmis[i].setAbs(cellules[j]->getAbs());
+                        fourmis[i].setOrd(cellules[j]->getOrd());
+                        cellules[j]->addEntite(&fourmis[i]);
+                        removeReferenceCellule(cellules[j], &fourmis[i]);
+                    }
+                }
+            }
+        }
+    }
+    if (fourmis[i].modeExploration() == RAVITAILLEMENT)
+    {
+        Cellule* celluleMaxPheromone = cellules[0];
+        for (unsigned int j = 0; j < cellules.size(); j++)
+        {
+            if (cellules[j]->contientPasObstacle())
+            {
+                if (cellules[j]->getPheromone() > celluleMaxPheromone->getPheromone())
+                {
+                    celluleMaxPheromone = cellules[j];
+                }
+            }
+        }
+        deposePheromone(1,celluleMaxPheromone);
+        fourmis[i].setAbs(celluleMaxPheromone->getAbs());
+        fourmis[i].setOrd(celluleMaxPheromone->getOrd());
+        celluleMaxPheromone->addEntite(&fourmis[i]);
+        removeReferenceCellule(celluleMaxPheromone, &fourmis[i]);
+    }
+}
+
+std::vector<Cellule*> Moteur::getCelluleAutour( unsigned int i,unsigned int j) {
+    std::vector<Cellule*> result;
     if(i>0){
-        result.push_back(terrain[i-1][j]);
+        result.push_back(&terrain[i-1][j]);
     }
     if(i<terrain.size()-1){
-        result.push_back(terrain[i+1][j]);
+        result.push_back(&terrain[i+1][j]);
     }
     if(j>0){
-        result.push_back(terrain[i][j-1]);
+        result.push_back(&terrain[i][j-1]);
     }
     if(j<terrain[i].size()-1){
-        result.push_back(terrain[i][j+1]);
+        result.push_back(&terrain[i][j+1]);
     }
     return result;
 }
@@ -243,7 +207,7 @@ void Moteur::deposePheromone(int i, Cellule* c){
     c->addPheromone(i);
 }
 
-void Moteur::removeReferenceCellule(Cellule* c, Fourmi* f){
+void Moteur::removeReferenceCellule(Cellule* c, Entite* f){
     c->removeEntite(f);
 }
 

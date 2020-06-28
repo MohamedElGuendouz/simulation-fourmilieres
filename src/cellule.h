@@ -19,26 +19,37 @@ class Cellule {
     Cellule(int coordX, int coordY,int p,int n, T_TYPE_CELLULE t):x(coordX),y(coordY),pheromones(p),nourriture(n),type(t){};
 
     void addEntite(Entite* ent){
-      this->contenu.push_back(ent);
+      int i =0;
+      bool trouve = false;
+      while(i<contenu.size() and !trouve){
+        if(contenu[i] == ent){
+          trouve = true;
+        } else{
+          i++;
+        }
+      }
+      if (!trouve) this->contenu.push_back(ent);
     }
     void removeEntite(Entite* ent){
-      std::vector<Entite*>::iterator it; 
       int i =0;
-      for (it = contenu.begin(); it != contenu.end(); it++)
-      {
-          if (contenu[i] == ent)
-          {
-              contenu.erase(it);
-          }
+      bool trouve = false;
+      while(i<contenu.size() and !trouve){
+        if(contenu[i] == ent){
+          trouve = true;
+        } else{
           i++;
+        }
       }
+      if (trouve) contenu.erase(contenu.begin()+i);
     }
 
     std::vector<Entite*> getEntite(){return contenu;}
 
     void addPheromone(int qte) {pheromones += qte;}
 
-    T_TYPE_CELLULE getType() ;
+    T_TYPE_CELLULE getType() const;
+    int getAbs()const {return x;}
+    int getOrd()const {return y;}
 
     void setType(T_TYPE_CELLULE type);
     int getPheromone(){return pheromones;}

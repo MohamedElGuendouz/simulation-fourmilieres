@@ -11,7 +11,7 @@ void Cellule::setType(T_TYPE_CELLULE type) {
     this->type = type;
 }
 
-T_TYPE_CELLULE Cellule::getType() {
+T_TYPE_CELLULE Cellule::getType() const{
     return this->type;
 }
 

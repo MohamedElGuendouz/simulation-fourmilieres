@@ -39,6 +39,7 @@ class Fourmi : public Entite {
         void setEtat(T_ETAT_FOURMI r){this->etat=r;};
 
         T_EXPLORATION_FOURMI modeExploration(){return exploration;}
+        void setExplo(T_EXPLORATION_FOURMI r){this->exploration=r;};
 
         T_STATUS_FOURMI getStatus(){return status;};
         void setStatus(T_STATUS_FOURMI s){this->status=s;};
