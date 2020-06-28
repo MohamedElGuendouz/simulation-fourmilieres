@@ -5,155 +5,157 @@
 //#include "nourriture.h"
 #include "obstacle.h"
 #include "cellule.h"
-#include <time.h> 
+#include <time.h>
 
-class Moteur {
+class Moteur
+{
 
-    private:
-        int hauteur;
-        int largeur;
-        
-        std::vector<Fourmi> fourmis;
-        std::vector<Nourriture> nourritures;
-        std::vector< std::vector<Cellule> > terrain;
-        std::vector<Obstacle> obstacles;
-        std::vector<Fourmiliere> fourmilieres;
-        std::vector<Fourmi> reines;
+private:
+    int hauteur;
+    int largeur;
 
-        unsigned int populationMax;
-        unsigned int nourritureMax;
+    std::vector<Fourmi> fourmis;
+    std::vector<Nourriture> nourritures;
+    std::vector< std::vector<Cellule> > terrain;
+    std::vector<Obstacle> obstacles;
+    std::vector<Fourmiliere> fourmilieres;
+    std::vector<Fourmi> reines;
 
-        int nbTour;
+    unsigned int populationMax;
+    unsigned int nourritureMax;
 
-        bool partieEnCours;
+    int nbTour;
 
-    public:
-        int getRandInt(int a, int b){ 
-            return rand()%(b-a)+a; 
-        }
-        
-        Moteur(int vf, int vr, int vn ,int vo, int vfm, int popMax, int nourMax, int hauteur, int largeur)
+    bool partieEnCours;
+
+    Moteur(int vf, int vr, int vn, int vo, int vfm, int popMax, int nourMax, int hauteur, int largeur)
+    {
+        this->hauteur = hauteur;
+        this->largeur = largeur;
+
+        terrain.resize(hauteur);
+        for (size_t i = 0; i < hauteur; i++)
         {
-            this->hauteur = hauteur;
-            this->largeur = largeur;
-
-            terrain.resize(hauteur);
-            for (size_t i = 0; i < hauteur; i++)
+            terrain[i].resize(largeur);
+            for (size_t j = 0; j < largeur; j++)
             {
-                terrain[i].resize(largeur);
-                for (size_t j = 0; j < largeur; j++)
-                {
-                    terrain[i][j] = Cellule(i,j,0,0,LIBRE);
-                }
+                terrain[i][j] = Cellule(i, j, 0, 0, LIBRE);
             }
-            
-            fourmis.clear();
-            for (size_t i = 0; i < vf; i++)
-            {
-                int xtmp = getRandInt(0,hauteur-1);
-                int ytmp = getRandInt(0,largeur-1);
-                
-                fourmis.push_back(Fourmi(xtmp,ytmp,FOURMI,OUVRIERE));
-                terrain[xtmp][ytmp].addEntite(&fourmis[i]);
-                std::cout <<"ajout fourmi : "<< xtmp << ytmp;
-            }
-            
-            nourritures.clear();
-            for (size_t i = 0; i < vn; i++)
-            {
-                int xtmp = getRandInt(0,hauteur-1);
-                int ytmp = getRandInt(0,largeur-1);
-
-                nourritures.push_back(Nourriture(xtmp,ytmp,getRandInt(1,9)));
-                terrain[xtmp][ytmp].addEntite(&nourritures[i]);
-                std::cout <<"ajout nourriture : "<< xtmp << ytmp;
-            }
-            
-            obstacles.clear();
-            for (size_t i = 0; i < vo; i++)
-            {
-                int xtmp = getRandInt(0,hauteur-1);
-                int ytmp = getRandInt(0,largeur-1);
-
-                obstacles.push_back(Obstacle(xtmp,ytmp));
-                terrain[xtmp][ytmp].addEntite(&obstacles[i]);
-                std::cout <<"ajout obstacle : "<< xtmp << ytmp;
-            }
-
-            fourmilieres.clear();
-            for (size_t i = 0; i < vfm; i++)
-            {
-                int xtmp = getRandInt(0,hauteur-1);
-                int ytmp = getRandInt(0,largeur-1);
-
-                fourmilieres.push_back(Fourmiliere(xtmp,ytmp,10,10,0));
-                terrain[xtmp][ytmp].addEntite(&fourmilieres[i]);
-                std::cout <<"ajout fourmiliere : "<< xtmp << ytmp;
-            }
-
-            reines.clear();
-            for (size_t i = 0; i < vr; i++)
-            {
-                int xtmp = getRandInt(0,hauteur-1);
-                int ytmp = getRandInt(0,largeur-1);
-
-                reines.push_back(Fourmi(xtmp,ytmp,FOURMI,REINE));
-                terrain[xtmp][ytmp].addEntite(&reines[i]);
-                std::cout <<"ajout reine : "<< xtmp << ytmp;
-            }
-
-            populationMax = popMax;
-            nourritureMax = nourMax;
-            this->partieEnCours = true;
         }
 
-        int getHauteur(){return hauteur;}
-        int getLargeur(){return largeur;}
+        fourmis.clear();
+        for (size_t i = 0; i < vf; i++)
+        {
+            int xtmp = getRandInt(0, hauteur - 1);
+            int ytmp = getRandInt(0, largeur - 1);
 
-        int getNombreEntite();
+            fourmis.push_back(Fourmi(xtmp, ytmp, FOURMI, OUVRIERE));
+            terrain[xtmp][ytmp].addEntite(&fourmis[i]);
+        }
 
-        /** Cette méthode est utilisé pour passer a la prochaine partie **/
-        void next();
+        nourritures.clear();
+        for (size_t i = 0; i < vn; i++)
+        {
+            int xtmp = getRandInt(0, hauteur - 1);
+            int ytmp = getRandInt(0, largeur - 1);
 
-        /** Cette méthode est utilisé pour mettre à jour la matrice du terrain **/
-        void evolutionDuTerrain();
+            nourritures.push_back(Nourriture(xtmp, ytmp, getRandInt(1, 9)));
+            terrain[xtmp][ytmp].addEntite(&nourritures[i]);
+        }
 
-        /** Cette méthode est utilisé pour deplacer les fourmis du terrain **/
-        void deplacerLesFourmis();
+        obstacles.clear();
+        for (size_t i = 0; i < vo; i++)
+        {
+            int xtmp = getRandInt(0, hauteur - 1);
+            int ytmp = getRandInt(0, largeur - 1);
 
-        /** Cette méthode est utilisé pour supprimé de la matrice les entités mortes **/ 
-        void garbageEntite();
+            obstacles.push_back(Obstacle(xtmp, ytmp));
+            terrain[xtmp][ytmp].addEntite(&obstacles[i]);
+        }
 
-        void updateMatrice();
+        fourmilieres.clear();
+        for (size_t i = 0; i < vfm; i++)
+        {
+            int xtmp = getRandInt(0, hauteur - 1);
+            int ytmp = getRandInt(0, largeur - 1);
 
-        void reccupererLaNourriture(int i,int x,int y);
+            fourmilieres.push_back(Fourmiliere(xtmp, ytmp, 10, 10, 0));
+            terrain[xtmp][ytmp].addEntite(&fourmilieres[i]);
+        }
 
-        void deposePheromone(int i, Cellule* c);
+        reines.clear();
+        for (size_t i = 0; i < vr; i++)
+        {
+            int xtmp = getRandInt(0, hauteur - 1);
+            int ytmp = getRandInt(0, largeur - 1);
 
-        void removeReferenceCellule(Cellule* c, Entite* f);
+            reines.push_back(Fourmi(xtmp, ytmp, FOURMI, REINE));
+            terrain[xtmp][ytmp].addEntite(&reines[i]);
+        }
 
-        void updateValues();
+        populationMax = popMax;
+        nourritureMax = nourMax;
+        this->partieEnCours = true;
+    }
 
-        void deplacerFourmi(int i);
+public:
+    static Moteur &getInstance(int fourmis, int reines, int nourritures, int obstacles, int fourmiliere, int popMax, int nourMax, int hauteur, int largeur)
+    {
+        static Moteur instance(fourmis, reines, nourritures, obstacles, fourmiliere, popMax, nourMax, hauteur, largeur);
+        return instance;
+    }
+    int getRandInt(int a, int b)
+    {
+        return rand() % (b - a) + a;
+    }
 
-        int getSommeNourriture(int x, int y);
-        int getPheromoneCellule(int x, int y);
+    int getHauteur() { return hauteur; }
+    int getLargeur() { return largeur; }
 
-        std::vector<Cellule> updateAffichage();
+    int getNombreEntite();
 
-        std::vector<Fourmi> getFourmis();
+    /** Cette méthode est utilisé pour passer a la prochaine partie **/
+    void next();
 
-        std::vector<Obstacle> getObstacles() const;
+    /** Cette méthode est utilisé pour mettre à jour la matrice du terrain **/
+    void evolutionDuTerrain();
 
-        std::vector<Nourriture> getNourritures() const;
-        
-        std::vector< std::vector<Cellule> >& getMatrice() {return terrain;};
+    /** Cette méthode est utilisé pour deplacer les fourmis du terrain **/
+    void deplacerLesFourmis();
 
-        bool containsFourmi(int i, int j) const;
-        bool containsReine(int i, int j) const;
-        bool containsObstacle(int i, int j) const;
-        bool containsNourriture(int i, int j) const;
-        bool containsFoumiliere(int i, int j) const;
+    /** Cette méthode est utilisé pour supprimé de la matrice les entités mortes **/
+    void garbageEntite();
 
-        std::vector<Cellule*> getCelluleAutour(unsigned int i,unsigned int j);
+    void updateMatrice();
+
+    void reccupererLaNourriture(int i, int x, int y);
+
+    void deposePheromone(int i, Cellule *c);
+
+    void removeReferenceCellule(Cellule *c, Entite *f);
+
+    void updateValues();
+
+    void deplacerFourmi(int i);
+
+    int getSommeNourriture(int x, int y);
+    int getPheromoneCellule(int x, int y);
+
+    std::vector<Cellule> updateAffichage();
+
+    std::vector<Fourmi> getFourmis();
+
+    std::vector<Obstacle> getObstacles() const;
+
+    std::vector<Nourriture> getNourritures() const;
+
+    std::vector< std::vector<Cellule> > &getMatrice() { return terrain; };
+
+    bool containsFourmi(int i, int j) const;
+    bool containsReine(int i, int j) const;
+    bool containsObstacle(int i, int j) const;
+    bool containsNourriture(int i, int j) const;
+    bool containsFoumiliere(int i, int j) const;
+
+    std::vector<Cellule *> getCelluleAutour(unsigned int i, unsigned int j);
 };

@@ -31,7 +31,7 @@ private:
 
     std::cout << fourmis << " " << reines << " " << nourritures << " " << obstacles << " " << fourmiliere << std::endl;
 
-    Moteur moteur = Moteur(fourmis, reines, nourritures, obstacles, fourmiliere, popMax, nourMax, hauteur, largeur);
+    Moteur moteur = Moteur::getInstance(fourmis, reines, nourritures, obstacles, fourmiliere, popMax, nourMax, hauteur, largeur);
 
     lauchGame(hauteur, largeur);
     int partie = 15;
