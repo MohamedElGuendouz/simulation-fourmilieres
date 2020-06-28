@@ -12,7 +12,7 @@ void addObject(string object, int i, int j)
 
   int prioObject = 0;
 
-  //cout << object;
+  //std::cout << object;
   if (object == "🕳 ")
   {
     prioObject = 5;
@@ -33,7 +33,7 @@ void addObject(string object, int i, int j)
   {
     prioObject = 1;
   }
-  //cout << matrice[i][j];
+  //std::cout << matrice[i][j];
 
   int prioMaxCellule = 0;
   if (matrice[i][j] == " 🏔  ")
@@ -60,7 +60,7 @@ void addObject(string object, int i, int j)
   {
     prioMaxCellule = 0;
   }
-  //cout << prioObject << " " << prioMaxCellule;
+  //std::cout << prioObject << " " << prioMaxCellule;
 
   if (prioObject > prioMaxCellule)
   {
@@ -71,7 +71,7 @@ void addObject(string object, int i, int j)
       matrice[i][j] = object;
     }
   }
-  //cout << "  ======> [" << i << "," << j << "] = " << matrice[i][j] << "\n";
+  //std::cout << "  ======> [" << i << "," << j << "] = " << matrice[i][j] << "\n";
 }
 string getObject(int i, int j)
 {
@@ -81,18 +81,18 @@ void afficherEnvironnement(int row, int col)
 {
   int i, j;
 
-  cout << "\n"
-       << "-----------------------------------------\n";
-  cout << "\n";
+  std::cout << "\n"
+            << "-----------------------------------------\n";
+  std::cout << "\n";
   for (i = 0; i < row; i++)
   {
     for (j = 0; j < col; j++)
     {
-      cout << matrice[i][j];
+      std::cout << matrice[i][j];
     }
-    cout << "\n\n";
+    std::cout << "\n\n";
   }
-  cout << "-----------------------------------------\n";
+  std::cout << "-----------------------------------------\n";
 }
 
 void initEnvironnement(int row, int col)
@@ -130,13 +130,13 @@ void updateMatrice(Moteur *mot)
 {
 
   initEnvironnement(mot->getHauteur(), mot->getLargeur());
-  //cout << "x [i] = "<<terrain.size();
+  //std::cout << "x [i] = "<<terrain.size();
   for (size_t i = 0; i < mot->getHauteur(); i++)
   {
-    //cout << "x [j] = "<<terrain[i].size();
+    //std::cout << "x [j] = "<<terrain[i].size();
     for (size_t j = 0; j < mot->getLargeur(); j++)
     {
-      cout << "";
+      std::cout << "";
       if (mot->containsObstacle(i, j))
       {
         addObject("🕳 ", i, j);
@@ -163,32 +163,74 @@ void updateMatrice(Moteur *mot)
 
 void afficherPositionEntite(Moteur *mot)
 {
+
   for (size_t i = 0; i < mot->getHauteur(); i++)
   {
     for (size_t j = 0; j < mot->getLargeur(); j++)
     {
-      std::cout << "[" << i << "]"
-           << "[" << j << "] : ";
+      bool contentEntite = false;
+      bool afficherEntite = false;
+
       if (mot->containsObstacle(i, j))
       {
+        contentEntite = true;
+        if (!afficherEntite)
+        {
+          std::cout << "[" << i << "]"
+                    << "[" << j << "] : ";
+          afficherEntite = true;
+        }
         std::cout << " 🕳 ";
       }
       if (mot->containsFoumiliere(i, j))
       {
+        contentEntite = true;
+        if (!afficherEntite)
+        {
+          std::cout << "[" << i << "]"
+                    << "[" << j << "] : ";
+          afficherEntite = true;
+        }
         std::cout << " 🏔 ";
       }
       if (mot->containsReine(i, j))
       {
+        contentEntite = true;
+        if (!afficherEntite)
+        {
+          std::cout << "[" << i << "]"
+                    << "[" << j << "] : ";
+          afficherEntite = true;
+        }
         std::cout << " 👑 ";
-      }else if (mot->containsFourmi(i, j))
+      }
+      else if (mot->containsFourmi(i, j))
       {
+        contentEntite = true;
+        if (!afficherEntite)
+        {
+          std::cout << "[" << i << "]"
+                    << "[" << j << "] : ";
+          afficherEntite = true;
+        }
         std::cout << " 🐜 ";
       }
       if (mot->containsNourriture(i, j))
       {
+        contentEntite = true;
+        if (!afficherEntite)
+        {
+          std::cout << "[" << i << "]"
+                    << "[" << j << "] : ";
+          afficherEntite = true;
+        }
         std::cout << " 🥗 ";
       }
-      std::cout << "\n";
+      if (contentEntite)
+      {
+        std::cout << "\n";
+        contentEntite = false;
+      }
     }
   }
 }
@@ -214,15 +256,15 @@ int main(int argc, char *argv[])
 
   if (argc == 1)
   {
-    cout << "----------------------------------------" << endl;
-    cout << " Menu      FOURMILIERE      PROJET LP73 " << endl;
-    cout << "----------------------------------------" << endl;
-    cout << "1er parametre : nombre de fourmis" << endl;
-    cout << "2eme parametre : nombre de reine" << endl;
-    cout << "3eme parametre : nombre de nourriture" << endl;
-    cout << "4eme parametre : nombre de obstacle" << endl;
-    cout << "5eme parametre : nombre de fourmiliere" << endl;
-    cout << "----------------------------------------" << endl;
+    std::cout << "----------------------------------------" << endl;
+    std::cout << " Menu      FOURMILIERE      PROJET LP73 " << endl;
+    std::cout << "----------------------------------------" << endl;
+    std::cout << "1er parametre : nombre de fourmis" << endl;
+    std::cout << "2eme parametre : nombre de reine" << endl;
+    std::cout << "3eme parametre : nombre de nourriture" << endl;
+    std::cout << "4eme parametre : nombre de obstacle" << endl;
+    std::cout << "5eme parametre : nombre de fourmiliere" << endl;
+    std::cout << "----------------------------------------" << endl;
   }
   else
   {
@@ -232,46 +274,47 @@ int main(int argc, char *argv[])
     int obstacles = (int)(long)strtol(argv[4], &p, 10);
     int fourmiliere = (int)(long)strtol(argv[5], &p, 10);
 
-    cout << fourmis << " " << reines << " " << nourritures << " " << obstacles << " " << fourmiliere << std::endl;
+    std::cout << fourmis << " " << reines << " " << nourritures << " " << obstacles << " " << fourmiliere << std::endl;
 
-    Moteur moteur = Moteur(fourmis + 1, reines + 1, nourritures + 1, obstacles + 1, fourmiliere + 1, 15, 15, row, col);
+    Moteur moteur = Moteur(fourmis, reines, nourritures, obstacles, fourmiliere, 15, 15, row, col);
 
     lauchGame(row, col);
     int partie = 15;
 
     /*for(int n=0;n<5;n++){
       for(int m=0;m<10;m++){
-        cout<<n<<"  "<<m<< "   ";
-        cout<<moteur.containsFourmi(n,m);
-        cout<<moteur.containsObstacle(n,m);
-        cout<<moteur.containsNourriture(n,m);
-        cout<<moteur.containsFoumiliere(n,m);
-        cout<<moteur.containsReine(n,m);
-        cout<<endl;
+        std::cout<<n<<"  "<<m<< "   ";
+        std::cout<<moteur.containsFourmi(n,m);
+        std::cout<<moteur.containsObstacle(n,m);
+        std::cout<<moteur.containsNourriture(n,m);
+        std::cout<<moteur.containsFoumiliere(n,m);
+        std::cout<<moteur.containsReine(n,m);
+        std::cout<<endl;
       }
     }*/
 
     for (size_t i = 0; i < partie; i++)
     {
+      std::cout << "-----------------------------------------\n";
       if (i % 2 == 0)
       {
-        cout << "[info] Partie en cours.\n"
-             << std::endl;
+        std::cout << "[info] Partie en cours.\n"
+                  << std::endl;
       }
       else
       {
-        cout << "[info] Partie en cours...\n"
-             << std::endl;
+        std::cout << "[info] Partie en cours...\n"
+                  << std::endl;
       }
       updateGame(&moteur);
       moteur.next();
 
       if (i == 0)
       {
-        cout << "[info] Debut de la partie\n"
-             << std::endl;
+        std::cout << "[info] Debut de la partie\n"
+                  << std::endl;
       }
-      cout << "Partie : " << i << std::endl;
+      std::cout << "Partie : " << i << std::endl;
 
       usleep(999999);
 
@@ -282,8 +325,8 @@ int main(int argc, char *argv[])
       }
       else
       {
-        cout << "[info] Fin de la partie\n"
-             << std::endl;
+        std::cout << "[info] Fin de la partie\n"
+                  << std::endl;
       }
     }
   }
